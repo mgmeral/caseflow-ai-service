@@ -1,0 +1,51 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: caseflow-ai-service
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:default}
+
+  ai:
+    ollama:
+      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      chat:
+        options:
+          model: ${OLLAMA_CHAT_MODEL:llama3.1}
+      embedding:
+        options:
+          model: ${OLLAMA_EMBED_MODEL:nomic-embed-text}
+    vectorstore:
+      qdrant:
+        host: ${QDRANT_HOST:localhost}
+        port: ${QDRANT_PORT:6334}
+        collection-name: ${QDRANT_COLLECTION_DOCUMENTS:caseflow-documents}
+        use-tls: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+caseflow:
+  ai:
+    default-locale: en
+    default-top-k: 5
+    chunk-size: 500
+    chunk-overlap: 50
+
+logging:
+  level:
+    com.caseflow.ai: INFO
+    org.springframework.ai: INFO
