@@ -29,7 +29,8 @@ class TicketSummaryServiceTest {
     @Mock
     private ObjectMapper objectMapper;
 
-    private final ChatClient chatClient = mock(ChatClient.class);
+    @Mock
+    private ChatClient chatClient;
 
     @Test
     void summarize_returnsNonNullResponse_withTicketIdSet() throws Exception {

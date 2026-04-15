@@ -32,6 +32,6 @@ public final class PromptUtils {
         if (items == null || items.isEmpty()) {
             return label + ": (none)";
         }
-        return label + ":\n" + String.join("\n- ", items);
+        return label + ":\n- " + String.join("\n- ", items);
     }
 }

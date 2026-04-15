@@ -77,7 +77,7 @@ public class PolicyGuidanceService {
                 .sourceId((String) meta.getOrDefault("sourceId", ""))
                 .title((String) meta.getOrDefault("title", ""))
                 .snippet(text != null ? text.substring(0, Math.min(300, text.length())) : "")
-                .score(0.0)
+                .score(doc.getScore() != null ? doc.getScore() : 0.0)
                 .build();
     }
 }
