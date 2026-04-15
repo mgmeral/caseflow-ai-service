@@ -45,6 +45,8 @@ services:
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
     container_name: open-webui
+    profiles:
+      - dev
     ports:
       - "3000:8080"
     depends_on:
@@ -72,6 +74,7 @@ services:
       - OLLAMA_EMBED_MODEL=nomic-embed-text
       - QDRANT_HOST=qdrant
       - QDRANT_PORT=6334
+      - QDRANT_HTTP_PORT=6333
       - QDRANT_COLLECTION_DOCUMENTS=caseflow-documents
     restart: unless-stopped
 

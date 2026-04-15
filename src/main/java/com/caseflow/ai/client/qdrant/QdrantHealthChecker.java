@@ -12,8 +12,9 @@ public class QdrantHealthChecker {
     @Value("${spring.ai.vectorstore.qdrant.host}")
     private String qdrantHost;
 
-    @Value("${spring.ai.vectorstore.qdrant.port}")
-    private int qdrantPort;
+    // HTTP REST port (default 6333) — separate from the gRPC port (6334) used by Spring AI VectorStore
+    @Value("${caseflow.ai.qdrant-http-port:6333}")
+    private int qdrantHttpPort;
 
     private final RestTemplate restTemplate;
 
@@ -23,7 +24,7 @@ public class QdrantHealthChecker {
 
     public boolean isReachable() {
         try {
-            restTemplate.getForEntity("http://" + qdrantHost + ":" + qdrantPort + "/healthz", String.class);
+            restTemplate.getForEntity("http://" + qdrantHost + ":" + qdrantHttpPort + "/healthz", String.class);
             return true;
         } catch (Exception e) {
             log.warn("Qdrant not reachable: {}", e.getMessage());

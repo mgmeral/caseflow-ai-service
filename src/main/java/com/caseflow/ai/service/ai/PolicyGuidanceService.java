@@ -36,6 +36,9 @@ public class PolicyGuidanceService {
                 .topK(topK)
                 .build();
         List<Document> docs = vectorStore.similaritySearch(searchRequest);
+        if (docs.isEmpty()) {
+            log.info("No policy documents found for ticketId={}. The vector store may be empty — ingest policy documents first.", ticketId);
+        }
 
         List<PolicyReference> policyReferences = docs.stream().map(this::toPolicyReference).toList();
         List<String> snippets = docs.stream()

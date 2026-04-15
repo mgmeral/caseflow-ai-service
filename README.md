@@ -2,6 +2,8 @@
 
 AI orchestration layer for CaseFlow customer support ticket workflows, built with Spring Boot 3.x and Spring AI.
 
+> **Access model:** This service is **strictly service-to-service**. It is designed to be called only by the CaseFlow backend, never directly by browser frontends or end users. No authentication is implemented in P1 (Phase 1) — token-based service auth is planned for **P2**. **Do not expose this service on a public network or allow direct frontend access.**
+
 ---
 
 ## Architecture Overview
@@ -37,6 +39,10 @@ AI orchestration layer for CaseFlow customer support ticket workflows, built wit
 - **`ChunkingService`** — Splits documents into overlapping text chunks for indexing
 - **Prompt Builders** — Construct structured prompts instructing LLM to output JSON
 
+### RAG endpoints require prior ingestion
+
+The `/similar-cases` and `/policy-guidance` endpoints perform vector search against **Qdrant**. They are fully functional, but will return empty results until you have ingested data via the `/api/ai/ingest/documents` or `/api/ai/ingest/tickets` endpoints. Ingest your policies and resolved tickets before using these endpoints.
+
 ---
 
 ## Local Startup (without Docker)
@@ -45,7 +51,7 @@ AI orchestration layer for CaseFlow customer support ticket workflows, built wit
 - Java 21+
 - Maven 3.9+
 - [Ollama](https://ollama.ai) running locally on port 11434
-- [Qdrant](https://qdrant.tech) running locally on port 6334
+- [Qdrant](https://qdrant.tech) running locally (HTTP port 6333, gRPC port 6334)
 
 ### Start Ollama and pull models
 ```bash
@@ -57,6 +63,8 @@ ollama pull nomic-embed-text
 ```bash
 docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
 ```
+- Port **6333** — Qdrant HTTP REST API (used by the health checker)
+- Port **6334** — Qdrant gRPC API (used by Spring AI VectorStore for vector operations)
 
 ### Build and run
 ```bash
@@ -71,7 +79,7 @@ The service will be available at `http://localhost:8080`.
 
 ## Docker Compose
 
-### Start everything
+### Start core services (production-like)
 ```bash
 docker-compose up --build
 ```
@@ -82,12 +90,24 @@ This starts:
 | `caseflow-ai-service` | 8080 | The Spring Boot app |
 | `ollama` | 11434 | Ollama LLM server |
 | `ollama-init` | — | One-shot: pulls llama3.1 + nomic-embed-text |
-| `qdrant` | 6333/6334 | Vector DB |
-| `open-webui` | 3000 | Chat UI for Ollama |
+| `qdrant` | 6333 (HTTP) / 6334 (gRPC) | Vector DB |
+
+### Start with Open WebUI (local dev only)
+
+Open WebUI is a browser-based chat interface for Ollama. It is gated behind the `dev` Compose profile and **must not be started in any environment where the host is accessible to untrusted networks**, because it has no authentication by default.
+
+```bash
+docker-compose --profile dev up --build
+```
+
+This additionally starts:
+| Service | Port | Notes |
+|---|---|---|
+| `open-webui` | 3000 | Chat UI for Ollama — **dev only** |
 
 ### Stop everything
 ```bash
-docker-compose down
+docker-compose --profile dev down
 ```
 
 ---
@@ -236,8 +256,9 @@ curl http://localhost:8080/api/ai/health/models
 | `OLLAMA_BASE_URL` | `http://localhost:11434` | Ollama base URL |
 | `OLLAMA_CHAT_MODEL` | `llama3.1` | Model used for chat/generation |
 | `OLLAMA_EMBED_MODEL` | `nomic-embed-text` | Model used for embeddings |
-| `QDRANT_HOST` | `localhost` | Qdrant gRPC host |
-| `QDRANT_PORT` | `6334` | Qdrant gRPC port |
+| `QDRANT_HOST` | `localhost` | Qdrant hostname |
+| `QDRANT_PORT` | `6334` | Qdrant **gRPC** port (used by Spring AI VectorStore) |
+| `QDRANT_HTTP_PORT` | `6333` | Qdrant **HTTP** port (used by health checker) |
 | `QDRANT_COLLECTION_DOCUMENTS` | `caseflow-documents` | Qdrant collection name |
 | `SPRING_PROFILES_ACTIVE` | `default` | Active Spring profile |
 
@@ -263,12 +284,20 @@ Update `OLLAMA_CHAT_MODEL` and `OLLAMA_EMBED_MODEL` environment variables accord
 
 ---
 
-## Security Note
+## Security and Access Model
 
-> **Authentication and authorization are intentionally postponed to Phase 2 (P2).**
-> The service currently exposes all endpoints without any token-based protection.
-> Do not expose this service directly to the internet without adding appropriate security controls.
-> Planned P2 features: JWT/OAuth2 bearer token validation, role-based access, audit logging.
+> ### ⚠️ Service-to-service only — no direct frontend access
+>
+> This service is an **internal AI backend**. It is intended to be called exclusively by the **CaseFlow backend service** over a private/on-prem network. It must **never** be called directly from browser frontends, mobile apps, or any untrusted client.
+>
+> **Authentication is intentionally omitted in P1.** All endpoints are open to simplify local development and integration testing. Token-based service authentication (e.g. shared secret header, mTLS, or JWT service account) is planned for **Phase 2 (P2)**.
+>
+> **Do not:**
+> - Expose port 8080 on a public interface without a network boundary
+> - Allow end users or browser frontends to call this service directly
+> - Deploy without a surrounding API gateway or network policy in production
+>
+> **Planned P2 security additions:** service token validation, role-based endpoint access, audit logging.
 
 ---
 

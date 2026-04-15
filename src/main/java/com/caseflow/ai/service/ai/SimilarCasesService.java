@@ -28,6 +28,9 @@ public class SimilarCasesService {
                 .topK(topK)
                 .build();
         List<Document> docs = vectorStore.similaritySearch(searchRequest);
+        if (docs.isEmpty()) {
+            log.info("No similar cases found for ticketId={}. The vector store may be empty — ingest tickets/documents first.", ticketId);
+        }
         List<CaseMatch> matches = docs.stream().map(this::toMatch).toList();
         return SimilarCasesResponse.builder().ticketId(ticketId).matches(matches).build();
     }
