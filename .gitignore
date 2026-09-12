@@ -1,0 +1,66 @@
+### Maven ###
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### Maven Wrapper JAR (auto-downloaded; do not commit) ###
+.mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ IDEA (entire directory — machine-specific) ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Gradle ###
+.gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### OS ###
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+### Environment / secrets — NEVER commit these ###
+.env
+.env.local
+.env.*.local
+
+### Logs ###
+*.log
+logs/
+
+### Local storage (Docker volume data) ###
+storage-data/
+
+### Claude Code — local-only files (machine-specific permissions/cache) ###
+.claude/
+
+### Misc ###
+.kotlin
+tmp/
+temp/
+out/

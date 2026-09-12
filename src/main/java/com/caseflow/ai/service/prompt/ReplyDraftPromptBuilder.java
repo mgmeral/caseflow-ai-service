@@ -8,8 +8,10 @@ import org.springframework.stereotype.Component;
 public class ReplyDraftPromptBuilder {
 
     public String build(ReplyDraftRequest request) {
-        String tone = request.getTone() != null ? request.getTone() : "PROFESSIONAL";
-        String goal = request.getReplyGoal() != null ? request.getReplyGoal() : "RESOLUTION";
+        String tone = request.getTone() != null && !request.getTone().isBlank()
+                ? request.getTone() : "PROFESSIONAL";
+        String goal = request.getReplyGoal() != null && !request.getReplyGoal().isBlank()
+                ? request.getReplyGoal() : "RESOLUTION";
 
         return """
                 You are a senior customer support specialist drafting a reply to a customer.
@@ -27,22 +29,30 @@ public class ReplyDraftPromptBuilder {
                 Conversation History:
                 %s
 
-                Internal Notes:
+                Supplementary Internal Notes (do NOT copy into the reply):
                 %s
 
-                Relevant Policy Snippets:
+                Supplementary Policy Reference (use for grounding only, do NOT quote verbatim):
                 %s
 
                 Constraints:
                 %s
 
-                Draft a reply with the specified tone (%s) and goal (%s).
+                Instructions:
+                - Write a polite, professional reply to the customer in the specified tone (%s) aimed at %s.
+                - The suggestedBody field must contain ONLY the proposed reply text — no markdown wrappers, no headings, no explanations.
+                - Do NOT make promises about specific SLA timelines or resolution dates unless explicitly stated in the conversation.
+                - Do NOT fabricate actions that have not been taken.
+                - Do NOT leak internal notes or policy snippet text verbatim into the reply.
+                - Do NOT include any greeting or sign-off boilerplate beyond what fits naturally in the draft.
+                - Reply must be safe to show to the customer without further redaction.
+
                 Respond with a valid JSON object matching this schema exactly:
                 {
                   "suggestedSubject": "<email subject line>",
-                  "suggestedBody": "<full reply body>",
-                  "reasoningSummary": "<brief explanation of the reply approach>",
-                  "warnings": ["<warning if any>"],
+                  "suggestedBody": "<customer-safe reply body text only>",
+                  "reasoningSummary": "<brief internal explanation of the approach>",
+                  "warnings": ["<warning if any constraint was violated or context was insufficient>"],
                   "suggestedTags": ["<tag1>"],
                   "suggestedPriority": "<priority level>",
                   "confidence": <0.0 to 1.0>
@@ -51,8 +61,8 @@ public class ReplyDraftPromptBuilder {
                 Return ONLY the JSON object, no additional text.
                 """.formatted(
                 orDefault(request.getCustomerName(), "Customer"),
-                request.getTicketStatus(),
-                request.getPriority(),
+                orDefault(request.getTicketStatus(), "UNKNOWN"),
+                orDefault(request.getPriority(), "UNKNOWN"),
                 orDefault(request.getLocale(), "en"),
                 tone,
                 goal,

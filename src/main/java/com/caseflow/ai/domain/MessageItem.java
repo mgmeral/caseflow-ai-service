@@ -13,9 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 public class MessageItem {
     private String direction;
-    private String sender;
+    private String from;
     private List<String> recipients;
     private String subject;
-    private String body;
-    private String createdAt;
+    private String preview;
+    private String sentAt;
 }

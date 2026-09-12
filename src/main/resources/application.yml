@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${SERVER_PORT:8081}
 
 spring:
   application:
@@ -7,6 +7,28 @@ spring:
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:default}
 
+  # ── Relational DB (required for ingestion job tracking) ──────────────────
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/caseflow_ai}
+    username: ${DB_USERNAME:caseflow_ai}
+    password: ${DB_PASSWORD:caseflow_ai}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        default_schema: public
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: false
+    locations: classpath:db/migration
+
+  # ── Spring AI: Ollama (LLM + Embedding) ──────────────────────────────────
   ai:
     ollama:
       base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
@@ -23,15 +45,39 @@ spring:
         port: ${QDRANT_PORT:6334}
         collection-name: ${QDRANT_COLLECTION_DOCUMENTS:caseflow-documents}
         use-tls: false
+        # Do not attempt to create the collection at startup — manage lifecycle externally
+        initialize-schema: false
+
+  # ── Kafka (optional — controlled by caseflow.ai.async.enabled) ───────────
+  # The service boots and serves sync endpoints even if Kafka is absent.
+  # Set KAFKA_BOOTSTRAP_SERVERS and caseflow.ai.async.enabled=true to activate consumers.
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: caseflow-ai-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+        spring.json.trusted.packages: "com.caseflow.ai.messaging.event"
+        spring.json.use.type.headers: false
+        spring.json.value.default.type: com.caseflow.ai.messaging.event.GenericKafkaEvent
+    admin:
+      # Do not crash startup if Kafka broker is unavailable
+      fail-fast: false
 
 management:
   endpoints:
     web:
       exposure:
-        include: health,info
+        include: health,info,prometheus
   endpoint:
     health:
       show-details: always
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
 springdoc:
   api-docs:
@@ -39,8 +85,11 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
 
+# ── CaseFlow AI service configuration ────────────────────────────────────────
 caseflow:
   ai:
+    # Must match spring.ai.ollama.chat.options.model for response metadata accuracy
+    model-name: ${OLLAMA_CHAT_MODEL:llama3.1}
     default-locale: en
     default-top-k: 5
     chunk-size: 500
@@ -49,7 +98,36 @@ caseflow:
     # Distinct from spring.ai.vectorstore.qdrant.port which is the gRPC port (default 6334).
     qdrant-http-port: ${QDRANT_HTTP_PORT:6333}
 
+    # Async ingest consumers — DISABLED by default.
+    # Set async.enabled=true AND configure KAFKA_BOOTSTRAP_SERVERS to activate.
+    async:
+      enabled: ${ASYNC_ENABLED:false}
+      topic:
+        ticket-sync: ticket-ai-sync-requested
+        policy-ingest: policy-ai-ingest-requested
+        template-ingest: template-ai-ingest-requested
+
+    # Prompt versions — increment when prompts change materially.
+    prompt:
+      summary-version: "1.0"
+      reply-draft-version: "1.0"
+      similar-cases-version: "1.0"
+      policy-guidance-version: "1.0"
+
+    # Retrieval quality settings
+    retrieval:
+      # Minimum similarity score to include a result (0.0–1.0).
+      # Lower = more results but potentially less relevant.
+      similarity-threshold: 0.6
+
+    # Internal service-to-service auth (disabled by default — enable when caseflow-be integrates).
+    # When enabled, all /api/** requests must carry X-Internal-Api-Key header.
+    auth:
+      enabled: false
+      internal-api-key: ${INTERNAL_API_KEY:}
+
 logging:
   level:
     com.caseflow.ai: INFO
     org.springframework.ai: INFO
+    org.flywaydb: INFO

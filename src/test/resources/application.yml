@@ -1,0 +1,49 @@
+# Test configuration — overrides main application.yml for all tests.
+# Uses H2 in-memory DB to avoid requiring a running PostgreSQL instance.
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;NON_KEYWORDS=value
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      # Let Hibernate create/drop the schema in tests (Flyway is disabled below)
+      ddl-auto: create-drop
+    show-sql: false
+
+  flyway:
+    # Flyway disabled in tests — schema managed by Hibernate ddl-auto
+    enabled: false
+
+  # Kafka not started in tests — async is disabled
+  kafka:
+    bootstrap-servers: localhost:9092
+    admin:
+      fail-fast: false
+
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+    vectorstore:
+      qdrant:
+        host: localhost
+        port: 6334
+        initialize-schema: false
+
+caseflow:
+  ai:
+    model-name: test-model
+    async:
+      enabled: false
+    prompt:
+      summary-version: "1.0"
+      reply-draft-version: "1.0"
+      similar-cases-version: "1.0"
+      policy-guidance-version: "1.0"
+    retrieval:
+      similarity-threshold: 0.6
+    auth:
+      enabled: false

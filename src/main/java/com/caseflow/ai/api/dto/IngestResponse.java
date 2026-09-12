@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class IngestResponse {
+    private String jobId;
     private String sourceId;
     private int chunksIndexed;
     private String status;

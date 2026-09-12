@@ -17,6 +17,6 @@ public class MessageMapper {
         if (message == null) {
             return "";
         }
-        return "[" + message.getDirection() + "] " + message.getSender() + ": " + message.getBody();
+        return "[" + message.getDirection() + "] " + message.getFrom() + ": " + message.getPreview();
     }
 }

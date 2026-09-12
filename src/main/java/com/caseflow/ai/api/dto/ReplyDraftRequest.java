@@ -1,7 +1,6 @@
 package com.caseflow.ai.api.dto;
 
 import com.caseflow.ai.domain.MessageItem;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,9 +18,7 @@ public class ReplyDraftRequest {
     private String locale;
     private String tone;
     private String selectedTemplateCode;
-    @NotBlank
     private String ticketStatus;
-    @NotBlank
     private String priority;
     private List<String> tags;
     @NotEmpty

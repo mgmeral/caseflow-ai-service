@@ -1,6 +1,27 @@
 version: "3.9"
 
 services:
+
+  # ── PostgreSQL (required — ingestion job tracking) ─────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: caseflow-ai-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: caseflow_ai
+      POSTGRES_USER: caseflow_ai
+      POSTGRES_PASSWORD: caseflow_ai
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U caseflow_ai -d caseflow_ai"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ── Ollama (LLM + Embeddings) ──────────────────────────────────────────────
   ollama:
     image: ollama/ollama:latest
     container_name: ollama
@@ -28,6 +49,7 @@ services:
       - OLLAMA_HOST=http://ollama:11434
     restart: "no"
 
+  # ── Qdrant (Vector Store) ──────────────────────────────────────────────────
   qdrant:
     image: qdrant/qdrant:latest
     container_name: qdrant
@@ -42,13 +64,78 @@ services:
       timeout: 5s
       retries: 5
 
+  # ── Kafka + Zookeeper (optional async ingest — profile: async) ─────────────
+  # Start with: docker-compose --profile async up
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.7.0
+    container_name: zookeeper
+    profiles:
+      - async
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:7.7.0
+    container_name: kafka
+    profiles:
+      - async
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    healthcheck:
+      test: ["CMD", "kafka-topics", "--bootstrap-server", "localhost:9092", "--list"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+
+  # ── caseflow-ai-service ────────────────────────────────────────────────────
+  caseflow-ai-service:
+    build: .
+    container_name: caseflow-ai-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ollama:
+        condition: service_healthy
+      qdrant:
+        condition: service_healthy
+    environment:
+      - SERVER_PORT=8081
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_CHAT_MODEL=llama3.1
+      - OLLAMA_EMBED_MODEL=nomic-embed-text
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6334
+      - QDRANT_HTTP_PORT=6333
+      - QDRANT_COLLECTION_DOCUMENTS=caseflow-documents
+      - DB_URL=jdbc:postgresql://postgres:5432/caseflow_ai
+      - DB_USERNAME=caseflow_ai
+      - DB_PASSWORD=caseflow_ai
+      # Set ASYNC_ENABLED=true and KAFKA_BOOTSTRAP_SERVERS to activate consumers
+      - ASYNC_ENABLED=false
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+    restart: unless-stopped
+
+  # ── Open WebUI (dev only — Ollama UI) ─────────────────────────────────────
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
     container_name: open-webui
     profiles:
       - dev
     ports:
-      - "3000:8080"
+      - "3000:8081"
     depends_on:
       - ollama
     environment:
@@ -57,28 +144,8 @@ services:
       - open-webui-data:/app/backend/data
     restart: unless-stopped
 
-  caseflow-ai-service:
-    build: .
-    container_name: caseflow-ai-service
-    ports:
-      - "8080:8080"
-    depends_on:
-      ollama:
-        condition: service_healthy
-      qdrant:
-        condition: service_healthy
-    environment:
-      - SERVER_PORT=8080
-      - OLLAMA_BASE_URL=http://ollama:11434
-      - OLLAMA_CHAT_MODEL=llama3.1
-      - OLLAMA_EMBED_MODEL=nomic-embed-text
-      - QDRANT_HOST=qdrant
-      - QDRANT_PORT=6334
-      - QDRANT_HTTP_PORT=6333
-      - QDRANT_COLLECTION_DOCUMENTS=caseflow-documents
-    restart: unless-stopped
-
 volumes:
+  postgres-data:
   ollama-data:
   qdrant-data:
   open-webui-data:

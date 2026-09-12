@@ -16,14 +16,14 @@ public final class PromptUtils {
         for (MessageItem msg : messages) {
             sb.append("---\n");
             sb.append("Direction: ").append(msg.getDirection()).append("\n");
-            sb.append("From: ").append(msg.getSender()).append("\n");
+            sb.append("From: ").append(msg.getFrom()).append("\n");
             if (msg.getSubject() != null) {
                 sb.append("Subject: ").append(msg.getSubject()).append("\n");
             }
-            if (msg.getCreatedAt() != null) {
-                sb.append("Date: ").append(msg.getCreatedAt()).append("\n");
+            if (msg.getSentAt() != null) {
+                sb.append("Date: ").append(msg.getSentAt()).append("\n");
             }
-            sb.append("Body:\n").append(msg.getBody()).append("\n");
+            sb.append("Preview:\n").append(msg.getPreview()).append("\n");
         }
         return sb.toString();
     }

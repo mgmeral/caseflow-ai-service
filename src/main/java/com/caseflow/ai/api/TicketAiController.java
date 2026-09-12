@@ -5,6 +5,7 @@ import com.caseflow.ai.service.ai.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,20 +22,34 @@ public class TicketAiController {
     private final SimilarCasesService similarCasesService;
     private final PolicyGuidanceService policyGuidanceService;
 
-    @PostMapping("/summary")
+    @PostMapping(
+            value = "/summary",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<TicketSummaryResponse> summarize(
             @PathVariable String ticketId,
             @Valid @RequestBody TicketSummaryRequest request) {
         log.info("POST /api/ai/tickets/{}/summary", ticketId);
-        return ResponseEntity.ok(ticketSummaryService.summarize(ticketId, request));
+        TicketSummaryResponse dto = ticketSummaryService.summarize(ticketId, request);
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(dto);
     }
 
-    @PostMapping("/reply-draft")
+    @PostMapping(
+            value = "/reply-draft",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<ReplyDraftResponse> draftReply(
             @PathVariable String ticketId,
             @Valid @RequestBody ReplyDraftRequest request) {
         log.info("POST /api/ai/tickets/{}/reply-draft", ticketId);
-        return ResponseEntity.ok(replyDraftService.draftReply(ticketId, request));
+        ReplyDraftResponse dto = replyDraftService.draftReply(ticketId, request);
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(dto);
     }
 
     @PostMapping("/similar-cases")
