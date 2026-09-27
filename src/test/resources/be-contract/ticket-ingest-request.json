@@ -1,0 +1,11 @@
+{
+  "sourceId": "7d1f7e2a-3b8c-4d5e-9f10-1a2b3c4d5e6f",
+  "customerId": "42",
+  "groupId": "7",
+  "customerName": "Acme Corp",
+  "subject": "Login issue",
+  "body": "User cannot log in after a password change.",
+  "resolutionSummary": "Cleared the cached password in the browser.",
+  "tags": ["AUTH"],
+  "status": "RESOLVED"
+}

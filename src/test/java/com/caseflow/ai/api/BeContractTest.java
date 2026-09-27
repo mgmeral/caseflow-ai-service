@@ -2,6 +2,9 @@ package com.caseflow.ai.api;
 
 import com.caseflow.ai.api.dto.*;
 import com.caseflow.ai.service.ai.*;
+import com.caseflow.ai.service.ingest.DocumentIngestService;
+import com.caseflow.ai.service.ingest.TicketIngestService;
+import com.caseflow.ai.service.ingest.VectorIngestionService;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * {@code CaseflowAiClientContractTest} asserts it serializes exactly this JSON. Before AI-001 the
  * similar-cases and policy-guidance requests failed validation here (400) on every call.
  */
-@WebMvcTest(TicketAiController.class)
+@WebMvcTest({TicketAiController.class, IngestController.class})
 class BeContractTest {
 
     @Autowired private MockMvc mockMvc;
@@ -40,6 +43,9 @@ class BeContractTest {
     @MockBean private ReplyDraftService replyDraftService;
     @MockBean private SimilarCasesService similarCasesService;
     @MockBean private PolicyGuidanceService policyGuidanceService;
+    @MockBean private DocumentIngestService documentIngestService;
+    @MockBean private TicketIngestService ticketIngestService;
+    @MockBean private VectorIngestionService vectorIngestionService;
 
     @Test
     void summaryRequestFromBe_isAccepted() throws Exception {
@@ -72,6 +78,7 @@ class BeContractTest {
         assertThat(req.getTone()).isEqualTo("professional");
         assertThat(req.getReplyGoal()).isEqualTo("RESOLUTION");
         assertThat(req.getSelectedTemplateCode()).isEqualTo("CUSTOMER_REPLY");
+        assertThat(req.getCustomerId()).isEqualTo("42");
         assertThat(req.getLatestMessages()).hasSize(1);
     }
 
@@ -85,7 +92,9 @@ class BeContractTest {
         verify(similarCasesService).findSimilar(eq("1"), captor.capture());
         SimilarCasesRequest req = captor.getValue();
         assertThat(req.getQueryText()).startsWith("Login issue");
-        assertThat(req.getTopK()).isEqualTo(15);
+        assertThat(req.getTopK()).isEqualTo(30);
+        assertThat(req.getFilters().getStatuses()).containsExactly("CLOSED", "RESOLVED");
+        assertThat(req.getFilters().getExcludeSourceIds()).containsExactly("7d1f7e2a-3b8c-4d5e-9f10-1a2b3c4d5e6f");
         assertThat(req.getTags()).containsExactly("AUTH");
     }
 
@@ -102,6 +111,23 @@ class BeContractTest {
         assertThat(req.getTicketStatus()).isEqualTo("IN_PROGRESS");
         assertThat(req.getPriority()).isEqualTo("MEDIUM");
         assertThat(req.getTopK()).isEqualTo(5);
+        assertThat(req.getCustomerId()).isEqualTo("42");
+    }
+
+    @Test
+    void ticketIngestRequestFromBe_isAccepted() throws Exception {
+        when(ticketIngestService.ingest(any())).thenReturn(new IngestResponse());
+
+        postFixture("/api/ai/ingest/tickets", "ticket-ingest-request.json");
+
+        ArgumentCaptor<TicketIngestRequest> captor = ArgumentCaptor.forClass(TicketIngestRequest.class);
+        verify(ticketIngestService).ingest(captor.capture());
+        TicketIngestRequest req = captor.getValue();
+        assertThat(req.getSourceId()).isEqualTo("7d1f7e2a-3b8c-4d5e-9f10-1a2b3c4d5e6f");
+        assertThat(req.getCustomerId()).isEqualTo("42");
+        assertThat(req.getGroupId()).isEqualTo("7");
+        assertThat(req.getStatus()).isEqualTo("RESOLVED");
+        assertThat(req.getResolutionSummary()).startsWith("Cleared");
     }
 
     private void postFixture(String path, String fixture) throws Exception {

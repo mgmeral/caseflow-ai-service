@@ -128,6 +128,29 @@ class VectorIngestionServiceTest {
     }
 
     @Test
+    void ingest_dropsNullMetadataValues() {
+        // Found end to end: a ticket without a customer sent customerName=null and every
+        // ingest failed with "metadata cannot have null values".
+        IngestionJob job = buildJob("JOB-N");
+        when(ingestionJobService.createJob(any(), anyString(), any(), any(), any())).thenReturn(job);
+        when(ingestionJobService.startJob(anyString())).thenReturn(job);
+        when(ingestionJobService.completeJob(anyString(), anyInt())).thenReturn(job);
+        when(chunkingService.chunk(anyString())).thenReturn(List.of("chunk1"));
+        Map<String, Object> meta = new java.util.HashMap<>();
+        meta.put("sourceType", "TICKET");
+        meta.put("customerName", null);
+
+        VectorIngestionService.IngestResult result = service.ingest(EntityType.TICKET, "t-n",
+                IngestionJobType.INGEST, "text", meta, null, null);
+
+        assertThat(result.status()).isEqualTo("SUCCESS");
+        @SuppressWarnings("unchecked")
+        ArgumentCaptor<List<Document>> added = ArgumentCaptor.forClass(List.class);
+        verify(vectorStore).add(added.capture());
+        assertThat(added.getValue().get(0).getMetadata()).doesNotContainKey("customerName");
+    }
+
+    @Test
     void deleteSource_deletesBySourceTypeAndId() {
         service.deleteSource("ticket", "t-5");
 

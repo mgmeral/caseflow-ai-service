@@ -2,6 +2,7 @@
   "correlationId": "corr-1",
   "query": "What is the refund policy?",
   "customerName": "Acme Corp",
+  "customerId": "42",
   "ticketStatus": "IN_PROGRESS",
   "priority": "MEDIUM",
   "tags": ["BILLING"],

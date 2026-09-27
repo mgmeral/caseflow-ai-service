@@ -1,6 +1,7 @@
 {
   "correlationId": "corr-1",
   "customerName": "Acme Corp",
+  "customerId": "42",
   "locale": "en",
   "tone": "professional",
   "ticketStatus": "IN_PROGRESS",

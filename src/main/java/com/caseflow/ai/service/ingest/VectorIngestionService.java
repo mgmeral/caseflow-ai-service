@@ -94,6 +94,9 @@ public class VectorIngestionService {
             }
 
             Map<String, Object> baseMetadata = new HashMap<>(metadata);
+            // Spring AI documents reject null metadata values; optional fields (e.g. a ticket
+            // without a customer) are simply absent instead.
+            baseMetadata.values().removeIf(java.util.Objects::isNull);
             String sourceType = String.valueOf(baseMetadata.getOrDefault("sourceType", entityType.name()));
             baseMetadata.put("sourceType", sourceType);
             baseMetadata.put("sourceId", entityId);
