@@ -1,0 +1,14 @@
+{
+  "correlationId": "corr-1",
+  "customerName": "Acme Corp",
+  "ticketStatus": "IN_PROGRESS",
+  "priority": "MEDIUM",
+  "slaState": "OK",
+  "tags": ["AUTH"],
+  "latestMessages": [
+    {"direction": "inbound", "from": "c***@acme.com", "preview": "I cannot log in since yesterday.", "sentAt": "2026-09-27T09:00:00Z"}
+  ],
+  "internalNotes": ["Checked the account, it is not locked."],
+  "locale": "en",
+  "summaryStyle": "STANDARD"
+}

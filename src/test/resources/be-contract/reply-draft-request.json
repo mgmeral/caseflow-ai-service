@@ -1,0 +1,17 @@
+{
+  "correlationId": "corr-1",
+  "customerName": "Acme Corp",
+  "locale": "en",
+  "tone": "professional",
+  "ticketStatus": "IN_PROGRESS",
+  "priority": "MEDIUM",
+  "tags": ["AUTH"],
+  "latestMessages": [
+    {"direction": "inbound", "from": "c***@acme.com", "preview": "I cannot log in since yesterday.", "sentAt": "2026-09-27T09:00:00Z"}
+  ],
+  "internalNotes": ["Checked the account, it is not locked."],
+  "policySnippets": [],
+  "constraints": ["SLA resolution deadline in 120 minutes"],
+  "replyGoal": "RESOLUTION",
+  "selectedTemplateCode": "CUSTOMER_REPLY"
+}

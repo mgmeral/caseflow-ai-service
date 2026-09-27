@@ -1,0 +1,7 @@
+{
+  "correlationId": "corr-1",
+  "queryText": "Login issue\nUser cannot log in after a password change.",
+  "customerName": "Acme Corp",
+  "tags": ["AUTH"],
+  "topK": 15
+}
