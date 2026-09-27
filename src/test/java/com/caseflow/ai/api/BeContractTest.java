@@ -130,6 +130,21 @@ class BeContractTest {
         assertThat(req.getResolutionSummary()).startsWith("Cleared");
     }
 
+    @Test
+    void documentIngestRequestFromBe_isAccepted() throws Exception {
+        when(documentIngestService.ingest(any())).thenReturn(new IngestResponse());
+
+        postFixture("/api/ai/ingest/documents", "document-ingest-request.json");
+
+        ArgumentCaptor<DocumentIngestRequest> captor = ArgumentCaptor.forClass(DocumentIngestRequest.class);
+        verify(documentIngestService).ingest(captor.capture());
+        DocumentIngestRequest req = captor.getValue();
+        assertThat(req.getSourceId()).isEqualTo("0b7e2c55-9d41-4c8a-a7f2-3e5d6c7b8a90");
+        assertThat(req.getSourceType()).isEqualTo("POLICY");
+        assertThat(req.getTitle()).isEqualTo("Refund policy");
+        assertThat(req.getCustomerId()).isEqualTo("42");
+    }
+
     private void postFixture(String path, String fixture) throws Exception {
         String body = new ClassPathResource("be-contract/" + fixture).getContentAsString(StandardCharsets.UTF_8);
         mockMvc.perform(post(path)

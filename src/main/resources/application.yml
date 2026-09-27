@@ -34,6 +34,15 @@ spring:
   # Chat and embeddings are separate URLs because llama-server serves one model per process.
   # Never point these at a hosted provider with real ticket data without a KVKK/GDPR decision (AI-001).
   ai:
+    # Spring AI's default retry (10 attempts, exponential backoff up to minutes) held every request
+    # for minutes when the LLM server was down, past caseflow-be's read timeout. Fail fast instead:
+    # caseflow-be has its own retry + circuit breaker, and ingestion retries via its job queue.
+    retry:
+      max-attempts: 2
+      backoff:
+        initial-interval: 500ms
+        multiplier: 2
+        max-interval: 2s
     model:
       chat: openai
       embedding: openai
