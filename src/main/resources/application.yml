@@ -28,16 +28,31 @@ spring:
     baseline-on-migrate: false
     locations: classpath:db/migration
 
-  # ── Spring AI: Ollama (LLM + Embedding) ──────────────────────────────────
+  # ── Spring AI: OpenAI-compatible LLM + embeddings ─────────────────────────
+  # Any server speaking the OpenAI API works: llama.cpp llama-server (default, see
+  # docker-compose.yml), vLLM, Ollama's /v1 (profile "ollama"), or a hosted provider.
+  # Chat and embeddings are separate URLs because llama-server serves one model per process.
+  # Never point these at a hosted provider with real ticket data without a KVKK/GDPR decision (AI-001).
   ai:
-    ollama:
-      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+    model:
+      chat: openai
+      embedding: openai
+    openai:
+      # Local servers ignore the key; hosted providers need a real one.
+      api-key: ${AI_API_KEY:not-needed}
       chat:
+        base-url: ${AI_CHAT_BASE_URL:http://localhost:8090}
         options:
-          model: ${OLLAMA_CHAT_MODEL:llama3.1}
+          model: ${AI_CHAT_MODEL:qwen3-4b-instruct}
+          temperature: 0.2
+          max-tokens: ${AI_CHAT_MAX_TOKENS:1024}
+          # Every prompt in this service asks for a JSON object; enforce it at the decoder.
+          response-format:
+            type: JSON_OBJECT
       embedding:
+        base-url: ${AI_EMBED_BASE_URL:http://localhost:8091}
         options:
-          model: ${OLLAMA_EMBED_MODEL:nomic-embed-text}
+          model: ${AI_EMBED_MODEL:bge-m3}
     vectorstore:
       qdrant:
         host: ${QDRANT_HOST:localhost}
@@ -88,8 +103,8 @@ springdoc:
 # ── CaseFlow AI service configuration ────────────────────────────────────────
 caseflow:
   ai:
-    # Must match spring.ai.ollama.chat.options.model for response metadata accuracy
-    model-name: ${OLLAMA_CHAT_MODEL:llama3.1}
+    # Reported in response metadata; follows the chat model setting (also under the ollama profile)
+    model-name: ${spring.ai.openai.chat.options.model}
     default-locale: en
     default-top-k: 5
     chunk-size: 500
@@ -109,8 +124,8 @@ caseflow:
 
     # Prompt versions — increment when prompts change materially.
     prompt:
-      summary-version: "1.0"
-      reply-draft-version: "1.0"
+      summary-version: "1.1"
+      reply-draft-version: "1.1"
       similar-cases-version: "1.0"
       policy-guidance-version: "1.0"
 

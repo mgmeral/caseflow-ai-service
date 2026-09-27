@@ -3,6 +3,7 @@ package com.caseflow.ai.support;
 import com.caseflow.ai.domain.MessageItem;
 
 import java.util.List;
+import java.util.Locale;
 
 public final class PromptUtils {
 
@@ -26,6 +27,18 @@ public final class PromptUtils {
             sb.append("Preview:\n").append(msg.getPreview()).append("\n");
         }
         return sb.toString();
+    }
+
+    /**
+     * The "Locale" context line alone does not make small models answer in that language;
+     * this explicit instruction does. JSON keys stay English so parsing is unaffected.
+     */
+    public static String languageInstruction(String locale) {
+        String code = locale != null && !locale.isBlank() ? locale : "en";
+        String language = Locale.forLanguageTag(code).getDisplayLanguage(Locale.ENGLISH);
+        if (language.isBlank()) language = code;
+        return "Write every text value in " + language + " (locale \"" + code + "\"). "
+                + "Keep the JSON keys exactly as shown, in English.";
     }
 
     public static String formatList(List<String> items, String label) {

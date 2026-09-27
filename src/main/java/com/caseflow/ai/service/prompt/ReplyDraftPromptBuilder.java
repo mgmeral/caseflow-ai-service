@@ -46,6 +46,7 @@ public class ReplyDraftPromptBuilder {
                 - Do NOT leak internal notes or policy snippet text verbatim into the reply.
                 - Do NOT include any greeting or sign-off boilerplate beyond what fits naturally in the draft.
                 - Reply must be safe to show to the customer without further redaction.
+                - %s
 
                 Respond with a valid JSON object matching this schema exactly:
                 {
@@ -73,7 +74,8 @@ public class ReplyDraftPromptBuilder {
                 PromptUtils.formatList(request.getPolicySnippets(), "Policies"),
                 PromptUtils.formatList(request.getConstraints(), "Constraints"),
                 tone,
-                goal
+                goal,
+                PromptUtils.languageInstruction(request.getLocale())
         );
     }
 

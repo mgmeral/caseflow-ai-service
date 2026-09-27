@@ -1,0 +1,38 @@
+{
+  "documents": [
+    {"id": "d01", "text": "Resolved: customer could not log in after changing password. Cause: browser had cached the old credentials in the password manager. Fix: cleared saved password and reset session."},
+    {"id": "d02", "text": "Çözüldü: SSO girişi sonsuz döngüye giriyordu. Neden: sürümden sonra SAML ACS adresi değişti, müşterinin kimlik sağlayıcısı eski adresi kullanıyordu. Çözüm: IdP tarafında ACS URL güncellendi."},
+    {"id": "d03", "text": "Resolved: duplicate charge on monthly invoice. Cause: payment retry after gateway timeout. Fix: refunded the second charge within 5 business days."},
+    {"id": "d04", "text": "Çözüldü: faturada aktif kullanıcıdan fazla lisans görünüyordu. Pasif kullanıcılar lisans sayısına dahil ediliyordu. Çözüm: pasif kullanıcılar kaldırıldı, fark kredi olarak iade edildi."},
+    {"id": "d05", "text": "Resolved: API returned 503 for all requests. Cause: expired TLS certificate on the load balancer. Fix: certificate renewed and auto-renewal enabled."},
+    {"id": "d06", "text": "Çözüldü: webhook gönderimleri durmuştu. Neden: Redis failover sonrası kuyruk işçisi takıldı. Çözüm: işçi yeniden başlatıldı, bekleyen olaylar tekrar gönderildi."},
+    {"id": "d07", "text": "Resolved: invitation emails were not delivered to new users. Cause: missing SPF record on the customer's custom sender domain. Fix: customer added SPF and DKIM records."},
+    {"id": "d08", "text": "Çözüldü: CSV içe aktarımından sonra müşteri kayıtları kayboldu. Neden: içe aktarma 'birleştir' yerine 'değiştir' modunda çalıştırılmıştı. Çözüm: 06:00 yedeğinden geri yüklendi."},
+    {"id": "d09", "text": "Resolved: Jira integration did not create issues although the connection test passed. Cause: the configured issue type 'Bug' did not exist in the target project. Fix: mapped to 'Task'."},
+    {"id": "d10", "text": "Çözüldü: Slack bildirimleri her güncellemede iki kez geliyordu. Neden: aynı çalışma alanı için iki kanal yapılandırması vardı. Çözüm: yinelenen yapılandırma silindi."},
+    {"id": "d11", "text": "Resolved: former employee's account remained active and was used to log in. Fix: account deactivated, sessions revoked, access logs exported for the customer's security team."},
+    {"id": "d12", "text": "Çözüldü: sabah saatlerinde sistem çok yavaştı. Neden: raporlama işleri mesai başlangıcında çalışıyordu. Çözüm: rapor işleri gece saatlerine taşındı."},
+    {"id": "d13", "text": "Policy: refunds for duplicate or incorrect charges are issued within 5 business days to the original payment method."},
+    {"id": "d14", "text": "Politika: abonelik iptalinde 30 gün önceden bildirim gerekir; sözleşme sonunda tüm veriler CSV olarak dışa aktarılır."},
+    {"id": "d15", "text": "Policy: annual plans receive a 15% discount compared to monthly billing; switching takes effect at the next renewal date."},
+    {"id": "d16", "text": "Çözüldü: 200 bin bileti geçen hesapta arama 30 saniyeden uzun sürüyordu. Çözüm: arama indeksi yeniden oluşturuldu ve tarih filtresi varsayılan yapıldı."}
+  ],
+  "queries": [
+    {"q": "Şifremi değiştirdim, giriş yapamıyorum", "expected": "d01", "kind": "tr->en"},
+    {"q": "SSO login keeps redirecting back to the sign-in page", "expected": "d02", "kind": "en->tr"},
+    {"q": "Aynı hizmet için iki kez ücret alındı, iade istiyoruz", "expected": "d03", "kind": "tr->en"},
+    {"q": "Invoice shows more seats than active users", "expected": "d04", "kind": "en->tr"},
+    {"q": "Sipariş API'si 503 hatası veriyor", "expected": "d05", "kind": "tr->en"},
+    {"q": "Webhook deliveries stopped overnight", "expected": "d06", "kind": "en->tr"},
+    {"q": "Yeni kullanıcılara davet e-postaları gitmiyor", "expected": "d07", "kind": "tr->en"},
+    {"q": "Records disappeared after CSV import", "expected": "d08", "kind": "en->tr"},
+    {"q": "Jira entegrasyonu bilet oluşturmuyor ama test başarılı", "expected": "d09", "kind": "tr->en"},
+    {"q": "Slack notifications arrive twice", "expected": "d10", "kind": "en->tr"},
+    {"q": "Ex-employee account still active, logged in last night", "expected": "d11", "kind": "en->en"},
+    {"q": "Sabah 9-10 arası sistem çok yavaş", "expected": "d12", "kind": "tr->tr"},
+    {"q": "How long does a refund for a double charge take?", "expected": "d13", "kind": "en->en"},
+    {"q": "Aboneliği iptal edersek verilerimizi alabilir miyiz?", "expected": "d14", "kind": "tr->tr"},
+    {"q": "Yıllık plana geçersek indirim var mı?", "expected": "d15", "kind": "tr->en"},
+    {"q": "Search is extremely slow on a large account", "expected": "d16", "kind": "en->tr"}
+  ]
+}

@@ -1,0 +1,92 @@
+[
+  {"id": "tr-01", "locale": "tr", "customerName": "Anadolu Lojistik", "ticketStatus": "IN_PROGRESS", "priority": "HIGH", "tags": ["AUTH"],
+   "messages": [
+     {"direction": "inbound", "preview": "Merhaba, dün şifremi değiştirdim ve o zamandan beri sisteme giriş yapamıyorum. 'Geçersiz kimlik bilgileri' hatası alıyorum. Bugün saat 15:00'e kadar rapor yüklemem gerekiyor, acil yardım lütfen."},
+     {"direction": "outbound", "preview": "Merhaba, talebinizi aldık. Hesabınızı kontrol ediyoruz."}],
+   "notes": ["Hesap kilitli değil, son başarılı giriş 3 gün önce."]},
+  {"id": "tr-02", "locale": "tr", "customerName": "Ege Tekstil", "ticketStatus": "NEW", "priority": "MEDIUM", "tags": ["BILLING"],
+   "messages": [
+     {"direction": "inbound", "preview": "Eylül faturasında aynı hizmet için iki kez ücretlendirildik. Fatura no: FT-2026-0912. İade talep ediyoruz."}],
+   "notes": []},
+  {"id": "tr-03", "locale": "tr", "customerName": "Karadeniz Gıda", "ticketStatus": "IN_PROGRESS", "priority": "CRITICAL", "tags": ["OUTAGE", "API"],
+   "messages": [
+     {"direction": "inbound", "preview": "Sipariş API'niz sabahtan beri 503 dönüyor. Tüm mağazalarımızda sipariş alamıyoruz, ciddi ciro kaybı yaşıyoruz."},
+     {"direction": "outbound", "preview": "Sorunu inceliyoruz, ekibimiz konu üzerinde çalışıyor."},
+     {"direction": "inbound", "preview": "Hâlâ çalışmıyor. Ne zaman düzelecek? Yöneticimiz bilgi istiyor."}],
+   "notes": ["Altyapı ekibi load balancer sertifikasının süresinin dolduğunu tespit etti."]},
+  {"id": "tr-04", "locale": "tr", "customerName": "Marmara Otomotiv", "ticketStatus": "WAITING_CUSTOMER", "priority": "LOW", "tags": ["FEATURE_REQUEST"],
+   "messages": [
+     {"direction": "inbound", "preview": "Raporları Excel yerine CSV olarak da indirebilir miyiz? Muhasebe programımız sadece CSV kabul ediyor."}],
+   "notes": []},
+  {"id": "tr-05", "locale": "tr", "customerName": "Akdeniz Turizm", "ticketStatus": "IN_PROGRESS", "priority": "HIGH", "tags": ["DATA"],
+   "messages": [
+     {"direction": "inbound", "preview": "Yeni kullanıcı eklerken e-posta davetleri gitmiyor. 12 personelimiz sisteme erişemiyor. Spam klasörünü de kontrol ettik."}],
+   "notes": ["Mail sağlayıcısı loglarında bounce görünüyor: SPF kaydı eksik olabilir."]},
+  {"id": "tr-06", "locale": "tr", "customerName": "Trakya Enerji", "ticketStatus": "NEW", "priority": "MEDIUM", "tags": ["CONTRACT"],
+   "messages": [
+     {"direction": "inbound", "preview": "Sozlesmemizi yillik plana gecirmek istiyoruz. Indirim uygulaniyor mu? Mevcut aylik planimiz ay sonunda yenileniyor."}],
+   "notes": []},
+  {"id": "tr-07", "locale": "tr", "customerName": "Doğu Sağlık", "ticketStatus": "IN_PROGRESS", "priority": "HIGH", "tags": ["SECURITY"],
+   "messages": [
+     {"direction": "inbound", "preview": "Bir çalışanımız işten ayrıldı ama hesabı hâlâ aktif görünüyor ve dün gece giriş yapılmış. Hesabın hemen kapatılmasını ve erişim kayıtlarının paylaşılmasını istiyoruz."}],
+   "notes": ["Giriş IP adresi şirket dışı. Güvenlik ekibine eskale edildi."]},
+  {"id": "tr-08", "locale": "tr", "customerName": "İç Anadolu Tarım", "ticketStatus": "RESOLVED", "priority": "LOW", "tags": ["HOWTO"],
+   "messages": [
+     {"direction": "inbound", "preview": "Panelde tarih filtresini nasıl değiştirebilirim? Varsayılan olarak sadece son 7 günü gösteriyor."},
+     {"direction": "outbound", "preview": "Sağ üstteki takvim simgesinden tarih aralığını seçebilirsiniz; tercih kaydedilir."},
+     {"direction": "inbound", "preview": "Teşekkürler, sorun çözüldü."}],
+   "notes": []},
+  {"id": "tr-09", "locale": "tr", "customerName": "Güneydoğu Yapı", "ticketStatus": "IN_PROGRESS", "priority": "MEDIUM", "tags": ["INTEGRATION"],
+   "messages": [
+     {"direction": "inbound", "preview": "Jira entegrasyonu kuruldu ama biletler Jira'ya aktarılmıyor. Test bağlantısı başarılı görünüyor. Proje anahtarı CFY."}],
+   "notes": ["Jira tarafında 'Bug' issue tipi yok, sadece 'Task' var — eşleme hatası olabilir."]},
+  {"id": "tr-10", "locale": "tr", "customerName": "Başkent Eğitim", "ticketStatus": "NEW", "priority": "HIGH", "tags": ["PERFORMANCE"],
+   "messages": [
+     {"direction": "inbound", "preview": "Sabah 09:00-10:00 arası sistem çok yavaşlıyor, sayfalar 20 saniyede açılıyor. Öğretmenlerimiz ders kaydı giremiyor."}],
+   "notes": []},
+  {"id": "en-01", "locale": "en", "customerName": "Northwind Retail", "ticketStatus": "IN_PROGRESS", "priority": "HIGH", "tags": ["AUTH"],
+   "messages": [
+     {"direction": "inbound", "preview": "Since yesterday's update our SSO login loops back to the sign-in page. None of our 40 agents can log in. We need this fixed today."},
+     {"direction": "outbound", "preview": "Thanks for reporting. We are investigating the SSO redirect issue."}],
+   "notes": ["SAML ACS URL changed in the release; customer IdP still points to the old URL."]},
+  {"id": "en-02", "locale": "en", "customerName": "Contoso Health", "ticketStatus": "NEW", "priority": "MEDIUM", "tags": ["BILLING"],
+   "messages": [
+     {"direction": "inbound", "preview": "Our invoice shows 55 seats but we only have 42 active users. Please correct the invoice and credit the difference."}],
+   "notes": []},
+  {"id": "en-03", "locale": "en", "customerName": "Fabrikam Logistics", "ticketStatus": "IN_PROGRESS", "priority": "CRITICAL", "tags": ["OUTAGE"],
+   "messages": [
+     {"direction": "inbound", "preview": "Webhook deliveries stopped at 02:00 UTC. Our warehouse system depends on them. This is a production outage."},
+     {"direction": "inbound", "preview": "Any update? It's been 3 hours."}],
+   "notes": ["Webhook worker queue backed up after a Redis failover."]},
+  {"id": "en-04", "locale": "en", "customerName": "Adventure Works", "ticketStatus": "WAITING_CUSTOMER", "priority": "LOW", "tags": ["HOWTO"],
+   "messages": [
+     {"direction": "inbound", "preview": "How do I export all tickets from last quarter including internal notes?"},
+     {"direction": "outbound", "preview": "Could you confirm whether you need the notes in the same file or a separate one?"}],
+   "notes": []},
+  {"id": "en-05", "locale": "en", "customerName": "Tailspin Toys", "ticketStatus": "IN_PROGRESS", "priority": "HIGH", "tags": ["DATA"],
+   "messages": [
+     {"direction": "inbound", "preview": "About 300 customer records disappeared from our account after the CSV import this morning. We did not delete anything."}],
+   "notes": ["Import used 'replace' mode instead of 'merge'. Backups from 06:00 are available."]},
+  {"id": "en-06", "locale": "en", "customerName": "Wide World Importers", "ticketStatus": "NEW", "priority": "MEDIUM", "tags": ["CONTRACT"],
+   "messages": [
+     {"direction": "inbound", "preview": "We'd like to cancel our subscription at the end of the term. What is the notice period and will we get our data exported?"}],
+   "notes": []},
+  {"id": "en-07", "locale": "en", "customerName": "Litware Security", "ticketStatus": "IN_PROGRESS", "priority": "HIGH", "tags": ["SECURITY"],
+   "messages": [
+     {"direction": "inbound", "preview": "We received a phishing email that looks like it came from your support address. Can you confirm whether your domain was compromised?"}],
+   "notes": ["DMARC reports show spoofing from an external IP; our domain was not compromised."]},
+  {"id": "en-08", "locale": "en", "customerName": "Proseware", "ticketStatus": "RESOLVED", "priority": "LOW", "tags": ["UI"],
+   "messages": [
+     {"direction": "inbound", "preview": "The dark mode makes the status badges unreadable."},
+     {"direction": "outbound", "preview": "Thanks, this is fixed in today's release."},
+     {"direction": "inbound", "preview": "Confirmed, looks good now."}],
+   "notes": []},
+  {"id": "en-09", "locale": "en", "customerName": "Coho Winery", "ticketStatus": "IN_PROGRESS", "priority": "MEDIUM", "tags": ["INTEGRATION"],
+   "messages": [
+     {"direction": "inbound", "preview": "Slack notifications arrive twice for every ticket update since we reconnected the integration."}],
+   "notes": ["Two channel configs exist for the same Slack workspace."]},
+  {"id": "en-10", "locale": "en", "customerName": "Alpine Ski House", "ticketStatus": "NEW", "priority": "HIGH", "tags": ["PERFORMANCE"],
+   "messages": [
+     {"direction": "inbound", "preview": "Search takes over 30 seconds on our account since we passed 200k tickets. Agents are timing out."}],
+   "notes": []}
+]

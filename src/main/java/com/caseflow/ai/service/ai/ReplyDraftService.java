@@ -92,6 +92,7 @@ public class ReplyDraftService {
             if (parsed.getSuggestedTags() == null) parsed.setSuggestedTags(Collections.emptyList());
             return parsed;
         } catch (Exception e) {
+            aiMetrics.recordModelOutputNotJson("reply_draft");
             log.warn("Failed to parse reply draft JSON for ticketId={} — returning raw body with warning", ticketId);
             return ReplyDraftResponse.builder()
                     .ticketId(ticketId)

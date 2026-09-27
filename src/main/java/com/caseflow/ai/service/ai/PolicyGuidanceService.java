@@ -138,6 +138,7 @@ public class PolicyGuidanceService {
             }
             return parsed;
         } catch (Exception e) {
+            aiMetrics.recordModelOutputNotJson("policy_guidance");
             log.warn("Failed to parse policy guidance JSON for ticketId={} — returning raw content", ticketId);
             return PolicyGuidanceResponse.builder()
                     .ticketId(ticketId)

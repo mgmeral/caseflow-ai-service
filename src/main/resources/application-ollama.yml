@@ -1,0 +1,14 @@
+# Profile "ollama": run against a local Ollama through its OpenAI-compatible /v1 API.
+# Kept so existing Ollama setups keep working after the switch to llama-server (AI-001).
+# Activate with SPRING_PROFILES_ACTIVE=ollama.
+spring:
+  ai:
+    openai:
+      chat:
+        base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+        options:
+          model: ${OLLAMA_CHAT_MODEL:llama3.1}
+      embedding:
+        base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+        options:
+          model: ${OLLAMA_EMBED_MODEL:nomic-embed-text}

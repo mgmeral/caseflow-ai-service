@@ -92,6 +92,7 @@ public class TicketSummaryService {
             if (parsed.getCitations() == null) parsed.setCitations(Collections.emptyList());
             return parsed;
         } catch (Exception e) {
+            aiMetrics.recordModelOutputNotJson("summarize");
             log.warn("Failed to parse summary JSON for ticketId={} raw={} — returning raw content with warning",
                     ticketId, LlmJsonSanitizer.snippet(raw));
             return TicketSummaryResponse.builder()

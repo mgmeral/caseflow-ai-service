@@ -2,7 +2,7 @@ package com.caseflow.ai.service;
 
 import com.caseflow.ai.api.dto.HealthReadyResponse;
 import com.caseflow.ai.api.dto.ModelStatusResponse;
-import com.caseflow.ai.client.ollama.OllamaHealthChecker;
+import com.caseflow.ai.client.llm.LlmHealthChecker;
 import com.caseflow.ai.client.qdrant.QdrantHealthChecker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,30 +12,29 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class HealthService {
 
-    private final OllamaHealthChecker ollamaHealthChecker;
+    private final LlmHealthChecker llmHealthChecker;
     private final QdrantHealthChecker qdrantHealthChecker;
 
-    @Value("${spring.ai.ollama.chat.options.model}")
+    @Value("${spring.ai.openai.chat.options.model}")
     private String chatModel;
 
-    @Value("${spring.ai.ollama.embedding.options.model}")
+    @Value("${spring.ai.openai.embedding.options.model}")
     private String embeddingModel;
 
     public ModelStatusResponse getModelStatus() {
-        boolean ollamaReachable = ollamaHealthChecker.isReachable();
-        boolean qdrantReachable = qdrantHealthChecker.isReachable();
         return ModelStatusResponse.builder()
-                .ollamaReachable(ollamaReachable)
-                .qdrantReachable(qdrantReachable)
+                .chatModelReachable(llmHealthChecker.isChatReachable())
+                .embeddingModelReachable(llmHealthChecker.isEmbeddingReachable())
+                .qdrantReachable(qdrantHealthChecker.isReachable())
                 .chatModel(chatModel)
                 .embeddingModel(embeddingModel)
                 .build();
     }
 
     public HealthReadyResponse getReadiness() {
-        boolean ollamaReachable = ollamaHealthChecker.isReachable();
-        boolean qdrantReachable = qdrantHealthChecker.isReachable();
-        boolean ready = ollamaReachable && qdrantReachable;
+        boolean ready = llmHealthChecker.isChatReachable()
+                && llmHealthChecker.isEmbeddingReachable()
+                && qdrantHealthChecker.isReachable();
         return HealthReadyResponse.builder()
                 .ready(ready)
                 .status(ready ? "UP" : "DEGRADED")

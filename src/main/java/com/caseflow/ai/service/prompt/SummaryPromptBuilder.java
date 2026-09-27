@@ -33,6 +33,7 @@ public class SummaryPromptBuilder {
                 - Do not produce HTML, markdown panels, bullet lists wrapped in code blocks, or instructions for external tools.
                 - Do not include agent-internal notes verbatim in the summary field.
                 - Keep the summary field plain text, readable by an agent at a glance.
+                - %s
 
                 Respond with a valid JSON object matching this schema exactly:
                 {
@@ -67,6 +68,7 @@ public class SummaryPromptBuilder {
                 style,
                 PromptUtils.formatMessages(request.getLatestMessages()),
                 PromptUtils.formatList(request.getInternalNotes(), "Notes"),
+                PromptUtils.languageInstruction(request.getLocale()),
                 style
         );
     }

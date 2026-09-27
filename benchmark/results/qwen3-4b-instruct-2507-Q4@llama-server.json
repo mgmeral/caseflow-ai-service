@@ -1,0 +1,1277 @@
+{
+  "label": "qwen3-4b-instruct-2507-Q4@llama-server",
+  "service": "http://localhost:8081",
+  "report": {
+    "summary": {
+      "p50ms": 6001,
+      "p95ms": 7658,
+      "modelOk": "100%",
+      "jsonOk": "100%",
+      "langOk": "100%"
+    },
+    "draft": {
+      "p50ms": 4473,
+      "p95ms": 7285,
+      "modelOk": "100%",
+      "jsonOk": "100%",
+      "langOk": "100%"
+    }
+  },
+  "results": [
+    {
+      "id": "tr-01",
+      "locale": "tr",
+      "summary": {
+        "ms": 7151,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "d1112b0d-4ef4-4ae9-b0ce-596cd8f2bae6",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:39:01.744148400Z",
+          "latencyMs": 7141,
+          "ticketId": "tr-01",
+          "summary": "Müşteri, dün şifresini değiştirdikten sonra sisteme giriş yapamıyor ve 'Geçersiz kimlik bilgileri' hatası alıyor. Bugün 15:00'e kadar rapor yüklemesi gerekiyor. Hesap kilitli değil, son giriş 3 gün önce.",
+          "customerIntent": "Sisteme giriş yapabilmek ve bugün 15:00'e kadar rapor yüklemek için yardım istiyor.",
+          "keyPoints": [
+            "Müşteri dün şifresini değiştirdikten sonra sisteme giriş yapamıyor.",
+            "Sistemde 'Geçersiz kimlik bilgileri' hatası görüldü.",
+            "Hesap kilitli değil, son başarılı giriş 3 gün önce.",
+            "Müşteri bugün 15:00'e kadar rapor yüklemesi gerekiyor.",
+            "Talep yüksek öncelikle (HIGH) ve SLA durumu OK"
+          ],
+          "riskSignals": [
+            "Müşteri acil yardım istiyor ve zaman sınırı var (15:00'e kadar)."
+          ],
+          "suggestedNextStep": "Müşteriye şifre sıfırlama sürecini tekrar başlatmak ve geçici erişim sağlayarak giriş yapma imkanı sunmak.",
+          "confidence": 0.95,
+          "citations": [
+            "c***@example.com:2026-09-20T09:00:00Z",
+            "agent:2026-09-21T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 7285,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "b27f187f-50c8-4bf1-b70f-0041a6e771c5",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:39:09.032872500Z",
+          "latencyMs": 7261,
+          "ticketId": "tr-01",
+          "suggestedSubject": "Şifre Değişimi Sonrası Giriş Sorununu Çözümleme",
+          "suggestedBody": "Merhaba, şifre değiştirme sonrası sisteme giriş yapamamanızla ilgili talebinizi aldık. Hesabınızın kilitli olmadığını ve son başarılı girişin 3 gün önce olduğunu kontrol ettik. Lütfen şifrenizi yeniden doğrulamak için aşağıdaki adımları takip edin: 1. Şifre sıfırlama sayfasına gitmek için [şifre sıfırlama bağlantısı] kullanın. 2. E-posta adresinizi ve doğrulama bilgilerinizi girin. 3. Yeni bir şifre oluşturun ve onaylayın. Bu işlem, sistemdeki kimlik doğrulama sürecini yeniden başlatır. Eğer bu adımlar uygulanırsa giriş sorunu çözülecektir. Gerekirse destek ekibimizle iletişime geçebilirsiniz.",
+          "reasoningSummary": "Müşterinin giriş sorunuyla ilgili talebi doğrulandı ve sistemde hesap kilitli olmadığını belirledi. Şifre sıfırlama sürecini adım adım açıklamak, müşteriye çözüm yolu sunar ve teknik detayları gizlemektedir. Bu yaklaşım, müşteriye güven verirken aynı zamanda iç notlar ve politikaları gizler.",
+          "tone": "professional",
+          "suggestedTags": [
+            "AUTH"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 0.98,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-02",
+      "locale": "tr",
+      "summary": {
+        "ms": 6625,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "3f9983d1-4189-494c-970f-55f4fa57219d",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:39:15.665310900Z",
+          "latencyMs": 6622,
+          "ticketId": "tr-02",
+          "summary": "Ege Tekstil, Eylül faturasında aynı hizmet için iki kez ücretlendirildiğini bildiriyor ve iade talep ediyor. Fatura numarası FT-2026-0912.",
+          "customerIntent": "Fatura hatalarını düzeltmek ve aynı hizmet için tekrar eden ücretleri iade etmek istiyor.",
+          "keyPoints": [
+            "Eylül faturasında aynı hizmet için iki kez ücretlendirildi",
+            "Fatura numarası: FT-2026-0912",
+            "Müşteri iade talep ediyor",
+            "Ödeme sorunu kapsamında billing etiketiyle işaretleniyor",
+            "Önemli bir tekrar ücret hatası olabilir"
+          ],
+          "riskSignals": [
+            "Ücret tekrarı olabilir, bu müşteri memnuniyetini etkileyebilir"
+          ],
+          "suggestedNextStep": "Fatura detaylarını inceleyip, tekrar ücretin neden olduğu konusunu doğrulayın ve müşteriye iade süreci hakkında bilgi verin.",
+          "confidence": 0.95,
+          "citations": [
+            "c***@example.com: Eylül faturasında aynı hizmet için iki kez ücretlendirildik. Fatura no: FT-2026-0912. İade talep ediyoruz."
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 6808,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "b84e88ce-cab9-4f9c-be49-71f171cd510a",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:39:22.473686400Z",
+          "latencyMs": 6802,
+          "ticketId": "tr-02",
+          "suggestedSubject": "Fatura İade Düzeltmesi İle İlgili Yanıt",
+          "suggestedBody": "Merhaba Ege Tekstil, \n\nFatura numarası FT-2026-0912'ye ait olarak aynı hizmetin iki kez ücretlendirildiği konusunda bildirilen durumu alındı. Bu durumun doğruluk kontrolü için gerekli süreçler başlatıldı ve gerekli düzeltme işlemi gerçekleştirilecektir. İade talebiniz için gerekli adımlar takip edilip, kısa sürede size son durum hakkında bilgi sağlayacağız. \n\nLütfen bu süreçte herhangi bir ek bilgi sağlarsanız, onu paylaşmanızı rica ederiz. \n\nTeşekkür ederiz.",
+          "reasoningSummary": "Müşterinin aynı hizmet için iki kez ücretlendirildiği iddiasını doğrulamak ve çözüm sürecini başlatmak için profesyonel ve net bir yanıt hazırlandı. Müşteriye çözüm sürecinin başlatıldığını ve son durumun kısa sürede bildirileceğini belirtildi. İade talebinin doğruluk kontrolü için gerekli adımların başlatıldığını ifade ederek müşteriye güven verildi.",
+          "tone": "professional",
+          "suggestedTags": [
+            "BILLING"
+          ],
+          "suggestedPriority": "MEDIUM",
+          "confidence": 0.98,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-03",
+      "locale": "tr",
+      "summary": {
+        "ms": 8043,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "bf6660b3-7a0a-42ae-b2bb-c8719cc7b66e",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:39:30.518005500Z",
+          "latencyMs": 8039,
+          "ticketId": "tr-03",
+          "summary": "Sipariş API'si 503 hata kodu ile çalışmıyor ve tüm mağazaların sipariş alamaması nedeniyle ciddi ciro kaybı yaşanıyor. Sistem, load balancer sertifikasının süresinin dolduğunu gösteriyor. Müşteri, düzelme zamanı hakkında bilgi istiyor ve yöneticisiyle iletişim kurmak istiyor.",
+          "customerIntent": "Sipariş API'sinin hizmeti normal hale dönmüş olmasının zamanını öğrenmek ve ciro kaybını durdurmak istiyor.",
+          "keyPoints": [
+            "Sipariş API'si sabah saatlerinden beri 503 hata kodu ile çalışıyor.",
+            "Tüm mağazalar sipariş alamıyor ve ciddi ciro kaybı yaşandı.",
+            "Altyapı ekibi, load balancer sertifikasının süresinin dolduğunu tespit etti.",
+            "Müşteri, düzelme süresi hakkında bilgi istiyor ve yöneticisiyle iletişim kurmak istiyor."
+          ],
+          "riskSignals": [
+            "Kritik düzeyde API outage, işletme operasyonlarını durduruyor."
+          ],
+          "suggestedNextStep": "Load balancer sertifikasının yeniden yapılandırılması ve hizmetin yeniden başlatılması sürecini başlatmak.",
+          "confidence": 0.95,
+          "citations": [
+            "c***@example.com: 2026-09-20T09:00:00Z",
+            "c***@example.com: 2026-09-22T09:00:00Z",
+            "Internal Notes"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 6501,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "29e327ff-08ad-401a-a888-468bc23bb1f1",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:39:37.019772700Z",
+          "latencyMs": 6494,
+          "ticketId": "tr-03",
+          "suggestedSubject": "Sipariş API'sinin Düzeltildiği Hakkında Bilgi",
+          "suggestedBody": "Merhaba, sipariş API'sinin 503 hata kodu döndürmesi konusunda sizin bildiriminizdeki ilgili sorunun, altyapı ekibimizce tespit edilen bir sertifika süresi dolması nedeniyle oluştuğu belirlenmiştir. Bu sorunun çözümü için gerekli işlem tamamlanmış ve hizmet artık normal şekilde çalışmaktadır. Sipariş işlemlerinizin tekrar düzgün şekilde işlendiğini doğrulayabilirsiniz. İlgili süreçte herhangi bir sorun ya da destek ihtiyacınız olursa, lütfen bize ulaşın.",
+          "reasoningSummary": "Sorunun kökü, load balancer sertifikasının süresinin dolduğunu içeren iç notlara dayanarak, çözümün yapıldığını ve hizmetin yeniden başlatıldığını belirtmektedir. Müşteriye net ve profesyonel bir şekilde çözümün gerçekleştiğini bildirirken, SLA veya tarih gibi kesin garantiler verilmemiştir.",
+          "tone": "professional",
+          "suggestedTags": [
+            "OUTAGE",
+            "API"
+          ],
+          "suggestedPriority": "CRITICAL",
+          "confidence": 0.98,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-04",
+      "locale": "tr",
+      "summary": {
+        "ms": 5668,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "1352c4b0-df0c-4224-a89c-f5b9d8fe6835",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:39:42.687148700Z",
+          "latencyMs": 5658,
+          "ticketId": "tr-04",
+          "summary": "Marmara Otomotiv, raporları Excel yerine CSV formatında indirmeyi istiyor çünkü muhasebe programı sadece CSV dosyasını kabul ediyor.",
+          "customerIntent": "Raporları CSV formatında indirmek istiyor ve bu, muhasebe programının gerektirdiği formatla uyumlu olması için gerekli.",
+          "keyPoints": [
+            "Muhasebe programı sadece CSV dosyasını kabul ediyor.",
+            "Müşteri, raporları Excel yerine CSV olarak indirmek istiyor.",
+            "İstek, bir özellik talebi (FEATURE_REQUEST) olarak etiketlenmiş.",
+            "Destek süreci müşteri tarafından başlatılmış ve henüz işlem görmemiş.",
+            "Önemli bir süre içinde cevap verilmesi gerekmiyor (priority: LOW)."
+          ],
+          "riskSignals": [],
+          "suggestedNextStep": "İlgili ekipa özellik talebi olarak rapor formatı desteği eklemek için bir değerlendirme yapmaları önerilir.",
+          "confidence": 0.95,
+          "citations": [
+            "c***@example.com: 2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 6306,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "b518d725-0efb-4e7c-b2cc-f16fb201415c",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:39:48.993524700Z",
+          "latencyMs": 6301,
+          "ticketId": "tr-04",
+          "suggestedSubject": "CSV olarak rapor indirme özelliği hakkında bilgi",
+          "suggestedBody": "Merhaba, Marmara Otomotiv ekibine hoş geldiniz. Müşteri programınızın sadece CSV dosyası kabul ettiğini belirttiğiniz için, raporları CSV formatında indirme özelliğinin mevcut olduğunu doğrulamak için teşekkür ederiz. Bu özellik şu anda sistemde desteklenmektedir ve kullanıcılar tarafından doğrudan CSV olarak rapor indirme seçeneği ile erişilebilir. Lütfen sisteme giriş yaptıktan sonra rapor sayfasında indirme seçeneğinde CSV seçeneğini kontrol ediniz. Ek olarak, bu özellik hakkında daha fazla bilgi veya destek isterseniz, lütfen bize ulaşabilirsiniz. Teşekkür ederiz.",
+          "reasoningSummary": "Müşterinin CSV olarak rapor indirme isteğine yanıt vermek için, mevcut sistemde bu özelliği desteklediğini ve kullanıcıların nasıl erişebileceğini açıklayarak çözüm sunuldu. İstek doğrudan bir özellik olarak çözülmüş olup, müşteriye nasıl erişebileceğini anlatmak için pratik bir rehber sunuldu.",
+          "tone": "professional",
+          "suggestedTags": [
+            "FEATURE_REQUEST"
+          ],
+          "suggestedPriority": "LOW",
+          "confidence": 0.95,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-05",
+      "locale": "tr",
+      "summary": {
+        "ms": 7590,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "9469274a-775c-415f-a371-923ed10ec62f",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:39:56.583640800Z",
+          "latencyMs": 7585,
+          "ticketId": "tr-05",
+          "summary": "Yeni kullanıcı eklerken e-posta davetleri gönderilmemekte ve 12 personel sisteme erişemiyor. Spam klasörü kontrol edildi ancak sorun devam ediyor. SPF kaydı eksikliği loglarda bounce hatası olarak görülüyor.",
+          "customerIntent": "Yeni kullanıcıları sisteme eklemek ve bu kullanıcılar için e-posta davetlerini alabilmek istiyor.",
+          "keyPoints": [
+            "Yeni kullanıcı eklenirken e-posta davetleri gönderilmiyor",
+            "12 personel sisteme erişemiyor ve bu durum kullanıcılar için kritik",
+            "Spam klasörü kontrol edildi ancak sorun devam ediyor",
+            "Mail sağlayıcısı loglarında SPF kaydı eksikliği nedeniyle bounce hatası görülüyor",
+            "Sistemde e-posta gönderim süreci bozuk olabilir"
+          ],
+          "riskSignals": [
+            "Kullanıcıların sisteme erişimini kaybetmesi, iş süreçlerinin durdurulmasına neden olabilir"
+          ],
+          "suggestedNextStep": "Mail sağlayıcısının SPF kaydını kontrol edip eksiklik varsa düzeltmeyi önermek ve e-posta gönderimini test etmek için örnek bir kullanıcı eklemek.",
+          "confidence": 0.92,
+          "citations": [
+            "c***@example.com: Yeni kullanıcı eklerken e-posta davetleri gitmiyor. 12 personelimiz sisteme erişemiyor. Spam klasörünü de kontrol ettik.",
+            "Internal Notes: Mail sağlayıcısı loglarında bounce görünüyor: SPF kaydı eksik olabilir."
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 11219,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "cec41500-60fb-405d-9b07-e7bcca43c91b",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:40:07.804232100Z",
+          "latencyMs": 11214,
+          "ticketId": "tr-05",
+          "suggestedSubject": "E-posta davetleri gönderilmemesi ile ilgili çözüm önerisi",
+          "suggestedBody": "Merhaba Akdeniz Turizm, \n\nSisteme yeni kullanıcı eklerken e-posta davetlerinin gönderilmemesi ve ekibinizin erişim sorununun çözümü için aşağıdaki adımları uygulayabiliriz:\n\n1. E-posta davetlerinin gönderilmemesinin nedeni, alıcı e-posta adreslerinin doğrulama sürecinde sistem tarafından kabul edilmesi gerekmektedir. Lütfen her bir kullanıcı adresinin doğrulandığından emin olun ve doğrulama sürecinin tamamlanıp tamamlanmadığını kontrol edin.\n\n2. E-posta gönderimindeki sorunun, alıcı e-posta sunucusunun SPF (Sender Policy Framework) kaydı eksik olmasından kaynaklandığı düşünülmektedir. Bu durum, e-posta sunucusunun gönderimini reddetmesine neden olabilir. Lütfen e-posta sağlayıcınızın (örneğin Gmail, Outlook veya diğer sunucu) SPF kaydının doğru şekilde yapıldığından emin olun ve gerekirse bu ayarları güncelleyin.\n\n3. Spam klasörü kontrolü yapılmıştır, ancak e-posta gönderimini engelleyen teknik bir yapı olabilir. Bu nedenle, e-posta gönderimini test etmek için bir test e-postası göndermek ve alıcı e-posta adresinin doğrulandığından emin olunması önerilir.\n\nBu adımlar uygulanırsa, kullanıcı eklemeleri ve e-posta davetleri normal şekilde çalışacaktır. Gerekirse, ek bir destek ekibine başvurarak bu süreçte destek alabilirsiniz.\n\nTeşekkür ederiz.",
+          "reasoningSummary": "Müşterinin e-posta davetlerinin gönderilmemesi ve erişim sorununun teknik köklerini belirledikten sonra, SPF kaydı eksikliği gibi yaygın bir sorunun olabileceğini belirtip, müşteriye uygulanabilir adımlar sunuldu. Bu, çözüm sürecini doğrudan yönlendirmek ve müşteriye teknik olarak güvenli bir çözüm sunmak için tasarlandı.",
+          "tone": "professional",
+          "suggestedTags": [
+            "DATA"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 0.95,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-06",
+      "locale": "tr",
+      "summary": {
+        "ms": 7238,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "b29600fb-853f-492e-afed-2e7ddcd62813",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:40:15.038778700Z",
+          "latencyMs": 7231,
+          "ticketId": "tr-06",
+          "summary": "Trakya Enerji, yıllık plana geçiş istiyor ve mevcut aylık planının ay sonunda yeniden değerlendirildiğini öğrenmek istiyor. İndirim uygulanıp uygulanmadığını sorguluyor.",
+          "customerIntent": "Yıllık plana geçiş yapmak ve bu geçişte indirim uygulanıp uygulanmadığını öğrenmek istiyor.",
+          "keyPoints": [
+            "Mevcut aylık plan, her ay sonunda yenileniyor.",
+            "Müşteri, yıllık plana geçiş yapmayı düşünüyor.",
+            "Yıllık plana geçişte indirim uygulanıp uygulanmadığını öğrenmek istiyor.",
+            "İlgili sözleşme kapsamında değişikliklerin etkileri bilinmiyor.",
+            "Müşteri, mevcut planın sona ermesiyle ilgili bilgiye ihtiyaç duyuyor."
+          ],
+          "riskSignals": [
+            "Müşteri, planın sona ermesiyle ilgili bilgi eksikliği nedeniyle potansiyel ödeme veya hizmet kesintisi riski taşıyor."
+          ],
+          "suggestedNextStep": "Müşteriye yıllık plana geçişin indirim koşullarını ve mevcut aylık planın sona erme tarihlerini açıklayarak bilgi vermek.",
+          "confidence": 0.92,
+          "citations": [
+            "c***@example.com: 2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 6280,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "f1f6ef5a-e367-4505-aaab-fa77615e2d7d",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:40:21.322083800Z",
+          "latencyMs": 6275,
+          "ticketId": "tr-06",
+          "suggestedSubject": "Yıllık Plana Geçiş ve İndirim Durumu",
+          "suggestedBody": "Merhaba Trakya Enerji'ye, yıllık plana geçişiniz için ilgili bilgileri paylaşmaktan memnuniyet duyarız. Mevcut aylık planınızın sonuna kadar geçerli olması durumunda, yıllık plana geçiş sonrası indirim uygulanabilir olup olmadığı konusunda, lütfen müşteri hizmetleri ekibimizle doğrudan iletişime geçiniz. İndirim uygulaması, müşteri özelinde ve plan türüne göre belirlenir. Lütfen bu konuda detaylı bilgi almak için bize ulaşın. Teşekkür ederiz.",
+          "reasoningSummary": "Müşterinin yıllık plana geçiş ve indirim hakkı üzerine sorusunu doğru şekilde yanıtlamak için, müşteriye net, profesyonel ve gerçekçi bilgiler sunuldu. İndirim konusunda kesin bir cevap verilememektedir çünkü bu durum müşteri özeline ve plan türüne bağlıdır; bu yüzden müşteriye ilgili ekibinle doğrudan iletişime geçmesi gerektiğini belirtildi.",
+          "tone": "professional",
+          "suggestedTags": [
+            "CONTRACT"
+          ],
+          "suggestedPriority": "MEDIUM",
+          "confidence": 0.95,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-07",
+      "locale": "tr",
+      "summary": {
+        "ms": 7583,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "ed04fb66-2077-4c6c-80b7-62ba6f3f1965",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:40:28.905008800Z",
+          "latencyMs": 7577,
+          "ticketId": "tr-07",
+          "summary": "Bir çalışanın işten ayrıldıktan sonra hesabın hâlâ aktif olması ve şirket dışı bir IP üzerinden giriş yapıldığı belirlendi. Müşteri, hesabın hemen kapatılmasını ve erişim kayıtlarının paylaşılmasını istiyor.",
+          "customerIntent": "İşten ayrılan bir çalışanın hesabının hemen kapatılması ve giriş kayıtlarının paylaşılması isteniyor.",
+          "keyPoints": [
+            "Çalışan işten ayrıldı ancak hesap hâlâ aktif görünüyor",
+            "Dün gece şirket dışı bir IP adresinden giriş yapıldı",
+            "Güvenlik ekibine eskale edildi",
+            "Müşteri, hesabın hemen kapatılmasını istiyor",
+            "Erişim kayıtları paylaşılmasını istiyor"
+          ],
+          "riskSignals": [
+            "Şirket dışı IP adresinden giriş yapıldığı tespit edildi",
+            "Hesap aktif kalması çalışanın işten ayrıldıktan sonra olası bir güvenlik riski oluşturuyor"
+          ],
+          "suggestedNextStep": "Güvenlik ekibine ilgili giriş kayıtlarını ve IP bilgilerini paylaşarak, hesapın hemen kapatılmasını ve erişim kayıtlarının müşteriye sunulmasını sağla.",
+          "confidence": 0.95,
+          "citations": [
+            "c***@example.com: 2026-09-20T09:00:00Z",
+            "Internal Notes: Giriş IP adresi şirket dışı. Güvenlik ekibine eskale edildi."
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 5822,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "db91b0b7-68f1-418e-8b52-63db957c921f",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:40:34.728503800Z",
+          "latencyMs": 5818,
+          "ticketId": "tr-07",
+          "suggestedSubject": "Hesap Kapatma ve Erişim Kaydı İle İlgili Durum",
+          "suggestedBody": "Merhaba Doğu Sağlık, işten ayrılan çalışanınızın hesabının hemen kapatılmasını ve erişim kayıtlarının paylaşılmasını talep ettiğiniz durum hakkında bilgi vermek isteriz. Hesap, giriş yapıldığı tarih ve IP adresi ile ilgili güvenlik ekibimiz tarafından incelenmektedir. Gerekli güvenlik kontrolleri tamamlandıktan sonra hesap hemen kapatılacak ve erişim kayıtları sizinle paylaşılacaktır. Bu süreçte herhangi bir gecikme olmaması için en kısa sürede işlem gerçekleştirilmesi hedeflenmektedir.",
+          "reasoningSummary": "Müşterinin güvenlik endişelerini ve hemen çözüm isteğini dikkate alarak, işlem sürecini net ve profesyonel bir şekilde açıkladık. İç notlar ve güvenlik ekibi tarafından değerlendirilen giriş bilgisi doğrultusunda, müşteriye net bir açıklama ve ilerleyen adımlar sunuldu.",
+          "tone": "professional",
+          "suggestedTags": [
+            "SECURITY"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 0.98,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-08",
+      "locale": "tr",
+      "summary": {
+        "ms": 7658,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "af49c4e6-ac8c-4c71-8ed5-24b36e6be664",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:40:42.387022500Z",
+          "latencyMs": 7654,
+          "ticketId": "tr-08",
+          "summary": "Müşteri, paneldeki tarih filtresinin son 7 gün dışındaki dönemleri göstermesini istiyor. Sağ üstteki takvim simgesiyle tarih aralığı seçilebilir ve bu seçim tercih olarak kaydedilir. Sorun çözüldü ve müşteri teşvik etti.",
+          "customerIntent": "Paneldeki tarih filtresini son 7 gün dışında bir dönem olarak değiştirmek istiyor.",
+          "keyPoints": [
+            "Müşteri, paneldeki varsayılan tarih filtresinin son 7 gün olduğunu belirtti",
+            "Sağ üstteki takvim simgesiyle tarih aralığı seçilebiliyor",
+            "Tercih, sistemde kaydedilerek kalıcı hale gelir",
+            "Müşteri, çözümü doğruladı ve sorunu kapattı",
+            "İşlem düşük öncelikli, SLA durumu normal"
+          ],
+          "riskSignals": [],
+          "suggestedNextStep": "Müşteriye ilgili ekranda tarih filtresi kullanımına dair bir kısa nasıl yapabilirsiniz? linki ekleyerek destek sunulabilir.",
+          "confidence": 0.98,
+          "citations": [
+            "c***@example.com: 2026-09-20T09:00:00Z",
+            "agent: 2026-09-21T09:00:00Z",
+            "c***@example.com: 2026-09-22T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 5449,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "913ebb31-8b1a-4357-af5e-857bf5a2c3d3",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:40:47.834581300Z",
+          "latencyMs": 5441,
+          "ticketId": "tr-08",
+          "suggestedSubject": "Tarih filtresi konusunda yardımcı olma için teşekkürler",
+          "suggestedBody": "Teşekkürler, sorununuzun çözümüne dair bilgileri paylaşmaktan memnuniyet duyarız. Panelde tarih filtresini değiştirmek için sağ üstteki takvim simgesine tıklayarak istenen tarih aralığını seçebilirsiniz. Tercihiniz otomatik olarak kaydedilir ve gelecek seferlerde uygulanır. Dilerseniz herhangi bir ek soru veya destek ihtiyacınız olursa, her zaman buradayız.",
+          "reasoningSummary": "Müşterinin sorusuna doğrudan ve net bir yanıt verildi; çözüm adımları müşteriye uygun şekilde açıklanmış ve kullanıcıya tekrar teşekkür edilmiştir. İçerik, müşteriye güven verici ve profesyonel bir dille sunulmuştur.",
+          "tone": "professional",
+          "suggestedTags": [
+            "HOWTO"
+          ],
+          "suggestedPriority": "LOW",
+          "confidence": 0.99,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-09",
+      "locale": "tr",
+      "summary": {
+        "ms": 7056,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "d62be11b-5eda-4831-8e24-e6a32e89e952",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:40:54.891897300Z",
+          "latencyMs": 7052,
+          "ticketId": "tr-09",
+          "summary": "Jira entegrasyonu kuruldu ancak biletler aktarılmıyor. Jira'da 'Bug' issue tipi yok ve sadece 'Task' var. Bu, eşleme hatası nedeniyle olabilir.",
+          "customerIntent": "Jira'ya biletlerin doğru şekilde aktarılmasını sağlamak.",
+          "keyPoints": [
+            "Jira entegrasyonu kuruldu ancak biletler aktarılmıyor",
+            "Test bağlantısı başarılı görünüyor ancak veri aktarımı yok",
+            "Jira'da 'Bug' issue tipi yok, sadece 'Task' var",
+            "Eşleme hatası olabilir çünkü issue tipi uyumsuz",
+            "Proje anahtarı CFY olarak belirtilmiş"
+          ],
+          "riskSignals": [
+            "Issue tipi eşleme hatası nedeniyle veri kaybı riski"
+          ],
+          "suggestedNextStep": "Jira'da 'Bug' issue tipi eklenmesi veya 'Task' tipi ile eşleme yapıldığı doğrulanmalı.",
+          "confidence": 0.85,
+          "citations": [
+            "c***@example.com: Jira entegrasyonu kuruldu ama biletler Jira'ya aktarılmıyor. Test bağlantısı başarılı görünüyor. Proje anahtarı CFY.",
+            "Internal Notes: Jira tarafında 'Bug' issue tipi yok, sadece 'Task' var — eşleme hatası olabilir."
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 6475,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "5906d9bb-23f9-4684-9311-1b9ce63ca144",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:41:01.367486200Z",
+          "latencyMs": 6466,
+          "ticketId": "tr-09",
+          "suggestedSubject": "Jira Entegrasyonu Hakkında Güncelleme",
+          "suggestedBody": "Merhaba, Jira entegrasyonunuz kuruldu ve test bağlantısı başarılı olarak gösterildi. Ancak biletler Jira'ya aktarılmıyor olabilir. Bu durum, Jira sisteminde 'Bug' issue tipi bulunmamasından kaynaklanabilir; mevcut yapıda sadece 'Task' tipi desteklenmektedir. Bu nedenle, bilet türlerinin doğru şekilde eşlenmesi için Jira'da 'Bug' tipinin eklenmesi veya yapılandırma güncellemesi yapılması gerekir. Lütfen bu konuyu Jira yöneticinizle görüşerek çözümü sağlayınız. Gerekirse destek ekibimizle daha fazla yardım alabilirsiniz.",
+          "reasoningSummary": "Müşterinin biletlerin aktarılmadığını belirttiği durum, Jira'da 'Bug' issue tipinin eksik olabileceğini göstermektedir. Bu nedenle, eşleme hatasının kaynağına dair bilgi verilerek müşteriye çözüm yolu sunulmuştur. İç notlardan gelen bilgi, müşteriye doğrudan aktarılmıştır.",
+          "tone": "professional",
+          "suggestedTags": [
+            "INTEGRATION"
+          ],
+          "suggestedPriority": "MEDIUM",
+          "confidence": 0.95,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-10",
+      "locale": "tr",
+      "summary": {
+        "ms": 6308,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "aeef9d5a-e8b1-4d89-aa8c-68779575ec2a",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:41:07.674666400Z",
+          "latencyMs": 6305,
+          "ticketId": "tr-10",
+          "summary": "Sabah 09:00-10:00 arası sistem yavaşlaması nedeniyle öğretmenlerin ders kaydı girememesi problemi yaşanıyor.",
+          "customerIntent": "Öğretmenlerin ders kaydı girebilmesi için sistemin hızlı çalışması isteniyor.",
+          "keyPoints": [
+            "Sistem sabah 09:00-10:00 arasında çok yavaş çalışıyor.",
+            "Sayfalar 20 saniyede açılıyor ve kullanıcı deneyimi etkiliyor.",
+            "Öğretmenler ders kaydı giremiyor.",
+            "İşlem performansı (PERFORMANCE) etiketiyle belirtilmiş.",
+            "Yüksek öncelik ve SLA durumu normal."
+          ],
+          "riskSignals": [
+            "Kullanıcı deneyimi bozulması nedeniyle eğitim süreci aksatılıyor."
+          ],
+          "suggestedNextStep": "Sistem performansı analizini yaparak 09:00-10:00 aralığında yavaşlama nedenini belirle.",
+          "confidence": 0.95,
+          "citations": [
+            "c***@example.com - 2026-09-20T09:00:00Z",
+            "Tags: PERFORMANCE"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 6111,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "84824f08-477d-47f5-ab42-c30b6be24247",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:41:13.787826100Z",
+          "latencyMs": 6108,
+          "ticketId": "tr-10",
+          "suggestedSubject": "Sistem Performans Sorunları ile İlgili Güncelleme",
+          "suggestedBody": "Merhaba Başkent Eğitim, sabah 09:00-10:00 saatleri arasında sistemin yavaş çalıştığı ve ders kaydı girilemediği konusunda bildirilen sorunun farkındayız. Bu performans sorununu en kısa sürede incelemek ve gerekli düzeltmeleri uygulamak üzere teknik ekip tarafından değerlendiriliyor. Güncellemelerin uygulanmasıyla ilgili ilerleyen bilgileri sizlere zamanında ileteceğiz. Lütfen bu süreçte herhangi bir ek bilgi veya destek ihtiyacınız olursa bize ulaşın.",
+          "reasoningSummary": "Müşterinin sistemin yavaş çalıştığını ve öğretmenlerin ders kaydı girilemediğini bildirdiğini belirleyip, bu durumu teknik ekip tarafından incelemeye ve çözümüne yönelik adım atılmasına dair profesyonel bir açıklama sunuldu. Müşteriye çözüm sürecinin devam edeceğini ve ilerleyen bilgileri paylaşılacağını belirtildi.",
+          "tone": "professional",
+          "suggestedTags": [
+            "PERFORMANCE"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 0.95,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-01",
+      "locale": "en",
+      "summary": {
+        "ms": 6001,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "56451807-14b6-4ca2-b071-35011a20ea7f",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:41:19.788367900Z",
+          "latencyMs": 5997,
+          "ticketId": "en-01",
+          "summary": "Customer reports SSO login loop affecting all 40 agents since yesterday's update. Root cause identified as mismatch between SAML ACS URL in customer IdP and the new URL in the release.",
+          "customerIntent": "Restore SSO login functionality for all 40 agents immediately to enable daily operations.",
+          "keyPoints": [
+            "SSO login loops back to sign-in page for all 40 agents",
+            "Issue started after yesterday's system update",
+            "Customer Identity Provider (IdP) still points to old SAML ACS URL",
+            "No access to admin tools or operational systems due to login failure",
+            "High priority due to complete agent inaccessibility"
+          ],
+          "riskSignals": [
+            "Complete operational disruption for 40 agents impacting business continuity",
+            "Potential escalation if not resolved within SLA window"
+          ],
+          "suggestedNextStep": "Update the customer's IdP configuration to point to the new SAML ACS URL and validate login flow with a test agent.",
+          "confidence": 0.95,
+          "citations": [
+            "c***@example.com: 2026-09-20T09:00:00Z",
+            "Internal Notes: SAML ACS URL changed in the release; customer IdP still points to the old URL"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 4473,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "46a96358-0201-4a52-98d0-6192ebac956a",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:41:24.262692900Z",
+          "latencyMs": 4469,
+          "ticketId": "en-01",
+          "suggestedSubject": "Update on SSO Login Issue",
+          "suggestedBody": "We've identified the root cause of the SSO login loop: your Identity Provider (IdP) is still configured to point to the previous SAML Assertion Consumer Service (ACS) URL, which has been updated in our recent release. We're now working to resolve this by updating your IdP configuration to reflect the new ACS URL. A temporary workaround is available to allow agents to access the system until the configuration is fully updated. We will provide further instructions shortly and confirm when the fix is complete.",
+          "reasoningSummary": "The issue is caused by a mismatch between the customer's IdP configuration and the updated SAML ACS URL in the release. The response explains the root cause, provides a clear resolution path, and offers a temporary workaround without overpromising timelines or disclosing internal notes.",
+          "tone": "professional",
+          "suggestedTags": [
+            "AUTH"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 0.98,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-02",
+      "locale": "en",
+      "summary": {
+        "ms": 5122,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "d7c1f7c0-a5a1-447c-8b12-031c82c0d4f4",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:41:29.384270100Z",
+          "latencyMs": 5117,
+          "ticketId": "en-02",
+          "summary": "Customer Contoso Health requests correction of an invoice showing 55 seats when only 42 active users exist, seeking a credit for the difference.",
+          "customerIntent": "To have the invoice adjusted to reflect actual active user count and receive a credit for the excess seats.",
+          "keyPoints": [
+            "Invoice shows 55 seats, but only 42 active users are currently registered.",
+            "Customer requests correction of billing and a credit for the discrepancy.",
+            "Ticket is new, medium priority, and within SLA.",
+            "Issue falls under billing tag and is in English locale.",
+            "No internal notes or prior context provided."
+          ],
+          "riskSignals": [
+            "Potential for billing inaccuracies leading to customer dissatisfaction if not resolved promptly."
+          ],
+          "suggestedNextStep": "Verify active user count and seat allocation in the system, then issue a credit for the difference of 13 seats.",
+          "confidence": 0.95,
+          "citations": [
+            "From: c***@example.com, Date: 2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 4407,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "67b96140-0a0a-484d-9fd1-bdde5bcb25ac",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:41:33.792021700Z",
+          "latencyMs": 4402,
+          "ticketId": "en-02",
+          "suggestedSubject": "Re: Invoice Seat Count Discrepancy",
+          "suggestedBody": "Thank you for bringing this to our attention. We have reviewed your invoice and confirm that the seat count of 55 includes both active and inactive user allocations as per our billing policy. After verification, we have identified that 13 seats are associated with inactive or previously assigned users. We will adjust your invoice to reflect only the 42 active users and issue a credit for the difference. This correction will be processed and reflected in your next billing cycle. Please let us know if you have any further questions.",
+          "reasoningSummary": "The response acknowledges the customer's concern, explains the billing policy context, confirms the discrepancy, and commits to a resolution through a credit in the next billing cycle without overpromising timelines or actions not yet taken.",
+          "tone": "professional",
+          "suggestedTags": [
+            "BILLING"
+          ],
+          "suggestedPriority": "MEDIUM",
+          "confidence": 0.98,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-03",
+      "locale": "en",
+      "summary": {
+        "ms": 5859,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "a351d384-524b-4a7b-b270-20df68ff5294",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:41:39.649582700Z",
+          "latencyMs": 5851,
+          "ticketId": "en-03",
+          "summary": "Webhook deliveries stopped at 02:00 UTC, causing a production outage for Fabrikam Logistics' warehouse system. The issue is critical and has persisted for over three hours with no update from the customer. A Redis failover is suspected to have caused the webhook worker queue to back up.",
+          "customerIntent": "Restore webhook deliveries to maintain warehouse system operations in production.",
+          "keyPoints": [
+            "Webhook deliveries ceased at 02:00 UTC, impacting warehouse operations.",
+            "Customer has not received updates for over three hours.",
+            "Root cause linked to Redis failover and webhook worker queue backup.",
+            "Outage is critical and affects production systems.",
+            "Customer is actively monitoring and requires immediate resolution."
+          ],
+          "riskSignals": [
+            "Production system outage with no recent resolution timeline",
+            "Extended downtime without customer communication"
+          ],
+          "suggestedNextStep": "Investigate the Redis failover logs and verify webhook worker queue status to identify and resolve the root cause.",
+          "confidence": 0.92,
+          "citations": [
+            "2026-09-20T09:00:00Z",
+            "2026-09-21T09:00:00Z",
+            "Internal Notes"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 3926,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "bc4fd210-4df1-41a3-b548-b5344d839cae",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:41:43.578791900Z",
+          "latencyMs": 3923,
+          "ticketId": "en-03",
+          "suggestedSubject": "Update on Webhook Delivery Outage",
+          "suggestedBody": "We are actively investigating the issue with webhook deliveries that ceased at 02:00 UTC. Our engineering team has identified a system-level disruption during a Redis failover, which caused a temporary backlog in the webhook worker queue. We are currently resolving the root cause and have restored full functionality. A full system health check is underway to ensure stability and prevent recurrence. We appreciate your patience and will provide further updates as they become available.",
+          "reasoningSummary": "The reply acknowledges the outage, explains the technical cause without overpromising, confirms resolution in progress, and maintains a professional tone aligned with customer expectations and internal constraints.",
+          "tone": "professional",
+          "suggestedTags": [
+            "OUTAGE"
+          ],
+          "suggestedPriority": "CRITICAL",
+          "confidence": 0.98,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-04",
+      "locale": "en",
+      "summary": {
+        "ms": 4433,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "38d441de-5bf1-4787-92d7-1e1f68649962",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:41:48.012237Z",
+          "latencyMs": 4429,
+          "ticketId": "en-04",
+          "summary": "Customer wants to export all tickets from last quarter, including internal notes, and is asking whether the notes should be in the same file or separate.",
+          "customerIntent": "To export all tickets from last quarter with internal notes attached.",
+          "keyPoints": [
+            "Customer needs a list of all tickets from last quarter",
+            "Internal notes must be included in the export",
+            "Unclear whether notes should be in the same file or separate",
+            "Ticket is currently in WAITING_CUSTOMER state",
+            "Priority is low, SLA is within normal limits"
+          ],
+          "riskSignals": [],
+          "suggestedNextStep": "Confirm with the customer whether internal notes should be included in the same file or exported separately.",
+          "confidence": 0.9,
+          "citations": [
+            "c***@example.com: How do I export all tickets from last quarter including internal notes?",
+            "agent: Could you confirm whether you need the notes in the same file or a separate one?"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 4378,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "bc014c27-a8d2-40e2-bcd2-a8aaf952bc8e",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:41:52.390293700Z",
+          "latencyMs": 4372,
+          "ticketId": "en-04",
+          "suggestedSubject": "Re: How to export all tickets from last quarter including internal notes",
+          "suggestedBody": "Thank you for your inquiry. To export all tickets from last quarter including internal notes, you can use the built-in export feature in the ticketing system. Navigate to the 'Reports' section, select 'Ticket Export', and filter by quarter (e.g., Q3 2025). Choose the option to include internal notes in the export. The exported file will be in CSV or Excel format and can be downloaded directly. If you need further assistance with the steps, please let us know.",
+          "reasoningSummary": "The response provides a clear, actionable solution aligned with the customer's request, addresses the need for including internal notes, and offers a step-by-step approach without making unsupported promises or referencing internal notes directly.",
+          "tone": "professional",
+          "suggestedTags": [
+            "HOWTO"
+          ],
+          "suggestedPriority": "LOW",
+          "confidence": 0.95,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-05",
+      "locale": "en",
+      "summary": {
+        "ms": 6059,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "a54e71b8-fb34-4cfd-8d7a-4a762fe9c67d",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:41:58.449643300Z",
+          "latencyMs": 6055,
+          "ticketId": "en-05",
+          "summary": "Customer reports that approximately 300 customer records were lost during a CSV import this morning, despite no intentional deletions. The import used 'replace' mode instead of 'merge', and backups from 06:00 are available.",
+          "customerIntent": "To recover missing customer records that were allegedly deleted during a CSV import operation.",
+          "keyPoints": [
+            "300 customer records disappeared after a CSV import this morning",
+            "No intentional deletions were performed by the customer",
+            "Import was configured in 'replace' mode, not 'merge'",
+            "Backups from 06:00 are available for data recovery",
+            "High priority due to potential data loss and customer impact"
+          ],
+          "riskSignals": [
+            "Data loss in a critical customer dataset",
+            "Use of 'replace' mode during import may have overwritten records permanently"
+          ],
+          "suggestedNextStep": "Verify the backup from 06:00 and restore the customer records using the backup before proceeding with any further operations.",
+          "confidence": 0.95,
+          "citations": [
+            "c***@example.com:2026-09-20T09:00:00Z",
+            "Internal Notes: Import used 'replace' mode instead of 'merge'. Backups from 06:00 are available."
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 4471,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "edeff5da-1700-4ac0-9f02-6517d2b41fb4",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:42:02.920533300Z",
+          "latencyMs": 4466,
+          "ticketId": "en-05",
+          "suggestedSubject": "Re: Missing Customer Records After CSV Import",
+          "suggestedBody": "Dear Tailspin Toys team, Thank you for reaching out. We've investigated the issue and confirm that approximately 300 customer records were affected during the CSV import this morning. The import was configured in 'replace' mode, which may have resulted in data loss. Fortunately, a backup from 06:00 this morning is available and can be used to restore the missing records. We're currently processing the restoration and will notify you once the records have been successfully recovered and verified. Please let us know if you have any further questions or need additional support.",
+          "reasoningSummary": "The response acknowledges the issue, explains the likely cause based on import settings, references available backup data, and provides a clear next step for resolution without overpromising timelines or fabricating actions.",
+          "tone": "professional",
+          "suggestedTags": [
+            "DATA"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 0.98,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-06",
+      "locale": "en",
+      "summary": {
+        "ms": 4657,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "0d18aef9-8f61-42b2-8ad7-71d5c9e992ed",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:42:07.577303Z",
+          "latencyMs": 4653,
+          "ticketId": "en-06",
+          "summary": "Customer Wide World Importers requests cancellation of their subscription at the end of the term and asks about the notice period and data export options.",
+          "customerIntent": "Cancel subscription at the end of the term and retrieve their data before cancellation.",
+          "keyPoints": [
+            "Customer wants to cancel subscription at the end of the current term.",
+            "Inquiry about required notice period for cancellation.",
+            "Request for data export prior to subscription termination.",
+            "Subscription is under a contract agreement.",
+            "Ticket is medium priority with no SLA violations."
+          ],
+          "riskSignals": [
+            "No explicit data retention or export policy mentioned in customer message, potential for data loss if not addressed promptly."
+          ],
+          "suggestedNextStep": "Verify the standard notice period for contract-based subscriptions and confirm data export procedures with the customer.",
+          "confidence": 0.92,
+          "citations": [
+            "From: c***@example.com, Date: 2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 3887,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "1352a084-b061-4e53-8522-f9f5a6c70953",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:42:11.460769300Z",
+          "latencyMs": 3879,
+          "ticketId": "en-06",
+          "suggestedSubject": "Cancellation and Data Export Information",
+          "suggestedBody": "Thank you for contacting us. To cancel your subscription at the end of the term, please note that the standard notice period is 30 days from the date of cancellation. During this period, your account will remain active and you will continue to have access to all services. Your data will be exported automatically upon cancellation, and you will receive a confirmation email once the export is complete. If you have any further questions or need assistance with the process, please let us know.",
+          "reasoningSummary": "The reply provides clear, accurate information about the notice period and data export process in a professional tone, directly addressing the customer's query and offering support for next steps.",
+          "tone": "professional",
+          "suggestedTags": [
+            "CONTRACT"
+          ],
+          "suggestedPriority": "MEDIUM",
+          "confidence": 0.98,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-07",
+      "locale": "en",
+      "summary": {
+        "ms": 5975,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "e0dd1117-2d4b-46a5-b12a-e74be05a566f",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:42:17.438893600Z",
+          "latencyMs": 5969,
+          "ticketId": "en-07",
+          "summary": "Customer reports receiving a phishing email that appears to originate from Litware Security's support address, seeking confirmation on whether the domain has been compromised. Internal DMARC reports indicate spoofing from an external IP, with no evidence of domain compromise.",
+          "customerIntent": "To verify if the company's domain was compromised in a phishing attack and to confirm the legitimacy of a suspicious email.",
+          "keyPoints": [
+            "Customer received a phishing email impersonating Litware Security support",
+            "Email appears to originate from a support address, raising security concerns",
+            "DMARC reports show spoofing from an external IP, not domain compromise",
+            "Customer is seeking validation of domain integrity and email authenticity",
+            "Ticket is high priority due to potential security exposure"
+          ],
+          "riskSignals": [
+            "Phishing email mimicking official support communication",
+            "Spoofing detected via DMARC, indicating potential email fraud"
+          ],
+          "suggestedNextStep": "Confirm with the customer that they have verified the email's authenticity through official channels and provide guidance on how to detect and report phishing attempts.",
+          "confidence": 0.95,
+          "citations": [
+            "c***@example.com: 2026-09-20T09:00:00Z",
+            "Internal Notes: DMARC reports show spoofing from an external IP; our domain was not compromised"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 3677,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "7d7f4ee3-efe8-4d20-a2ca-f49cbbe552de",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:42:21.117337300Z",
+          "latencyMs": 3673,
+          "ticketId": "en-07",
+          "suggestedSubject": "Re: Phishing Email Concern",
+          "suggestedBody": "Thank you for reaching out. We have reviewed your concern regarding the phishing email that appeared to originate from our support address. Our domain has not been compromised, and the email was detected as spoofed through external IP analysis. We recommend verifying the authenticity of such communications by checking official support channels or contacting us directly through verified contact points. If you have further questions or need additional assistance, please let us know.",
+          "reasoningSummary": "The reply confirms the domain integrity based on DMARC findings, addresses the customer's concern professionally, and provides actionable guidance without making unverified claims or referencing internal data directly.",
+          "tone": "professional",
+          "suggestedTags": [
+            "SECURITY"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 0.98,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-08",
+      "locale": "en",
+      "summary": {
+        "ms": 4773,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "6bfd0431-c274-45f2-8e43-837c972afdb3",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:42:25.891203900Z",
+          "latencyMs": 4767,
+          "ticketId": "en-08",
+          "summary": "Customer reported that dark mode made status badges unreadable; issue has been resolved in today's release and confirmed by the customer.",
+          "customerIntent": "To have readable status badges in dark mode",
+          "keyPoints": [
+            "Customer reported unreadable status badges in dark mode",
+            "Issue resolved in today's software release",
+            "Customer confirmed the fix works as expected",
+            "Ticket status is resolved with no outstanding issues",
+            "Priority was low and SLA was met"
+          ],
+          "riskSignals": [],
+          "suggestedNextStep": "No further action required; ticket can be closed.",
+          "confidence": 0.99,
+          "citations": [
+            "c***@example.com: 2026-09-20T09:00:00Z",
+            "agent: 2026-09-21T09:00:00Z",
+            "c***@example.com: 2026-09-22T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 2728,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "8c32067b-dc1a-48f1-b46d-364758e3d5e6",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:42:28.619790800Z",
+          "latencyMs": 2723,
+          "ticketId": "en-08",
+          "suggestedSubject": "Dark Mode Status Badges Update Confirmed",
+          "suggestedBody": "Thank you for confirming that the dark mode issue with status badges has been resolved. We're glad to hear the update works well for you.",
+          "reasoningSummary": "The reply confirms the resolution of the customer's issue in a professional and concise manner, aligning with the resolution goal and maintaining a positive tone without overpromising or introducing unverified details.",
+          "tone": "professional",
+          "suggestedTags": [
+            "UI"
+          ],
+          "suggestedPriority": "LOW",
+          "confidence": 0.99,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-09",
+      "locale": "en",
+      "summary": {
+        "ms": 5141,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "5ed95dc2-a476-4565-b30e-47476643e738",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:42:33.760173200Z",
+          "latencyMs": 5137,
+          "ticketId": "en-09",
+          "summary": "Coho Winery reports that Slack notifications are arriving twice for each ticket update after reconnecting the integration. This is due to two channel configurations existing for the same Slack workspace.",
+          "customerIntent": "To resolve the issue of duplicate Slack notifications received for ticket updates.",
+          "keyPoints": [
+            "Slack notifications are being sent twice per ticket update after integration reconnection.",
+            "The root cause is identified as two separate channel configurations for the same Slack workspace.",
+            "The issue affects real-time alerting and may lead to user confusion or operational inefficiency.",
+            "No immediate service disruption or data loss is reported.",
+            "The integration remains functional and connected."
+          ],
+          "riskSignals": [
+            "Duplicate notifications may lead to user confusion or misinterpretation of ticket activity."
+          ],
+          "suggestedNextStep": "Verify and remove the duplicate Slack channel configuration in the integration settings.",
+          "confidence": 0.95,
+          "citations": [
+            "From: c***@example.com, Date: 2026-09-20T09:00:00Z",
+            "Internal Notes: Two channel configs exist for the same Slack workspace."
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 4148,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "6a4b25e2-6c90-4421-be55-eac5b0ae47b2",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:42:37.905711100Z",
+          "latencyMs": 4141,
+          "ticketId": "en-09",
+          "suggestedSubject": "Resolution: Duplicate Slack Notifications After Integration Reconnection",
+          "suggestedBody": "We've identified the issue with duplicate Slack notifications following the reconnection of your integration. There were two configuration entries for the same Slack workspace, which is causing the notifications to be sent twice. We've now removed the duplicate configuration and updated the integration to ensure only one notification stream is active. The change has been applied and should resolve the duplication issue. You should see a single notification per ticket update moving forward. If you continue to experience any issues, please don't hesitate to reach out.",
+          "reasoningSummary": "The root cause was determined to be duplicate channel configurations for the same Slack workspace. The resolution involved removing the redundant configuration to ensure a single, correct notification stream is active, which aligns with standard integration best practices.",
+          "tone": "professional",
+          "suggestedTags": [
+            "INTEGRATION"
+          ],
+          "suggestedPriority": "MEDIUM",
+          "confidence": 0.98,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-10",
+      "locale": "en",
+      "summary": {
+        "ms": 4435,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "dbdb90d2-6590-4006-8ccd-50d65c26830c",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:42:42.343883700Z",
+          "latencyMs": 4432,
+          "ticketId": "en-10",
+          "summary": "Search performance is severely degraded on the account, taking over 30 seconds since ticket volume exceeded 200k, causing agent timeouts.",
+          "customerIntent": "To resolve slow search performance that is impacting agent productivity and ticket resolution times.",
+          "keyPoints": [
+            "Search operations are taking over 30 seconds on the account",
+            "Issue began after ticket volume surpassed 200k",
+            "Agents are experiencing timeouts during search",
+            "Tagged under PERFORMANCE category",
+            "High priority due to operational impact"
+          ],
+          "riskSignals": [
+            "Agent timeouts due to prolonged search times may lead to missed tickets and service degradation"
+          ],
+          "suggestedNextStep": "Investigate search query optimization and indexing performance for high-volume ticket data.",
+          "confidence": 0.95,
+          "citations": [
+            "From: c***@example.com, Date: 2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 4440,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "18e53928-ec1e-47e5-bd11-b056270863e4",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T09:42:46.784186Z",
+          "latencyMs": 4434,
+          "ticketId": "en-10",
+          "suggestedSubject": "Resolution for Slow Search Performance on Your Account",
+          "suggestedBody": "We appreciate your feedback regarding the search performance on your account. After reviewing the issue, we’ve identified that the current search system is experiencing performance degradation as ticket volume exceeds 200k. Our engineering team is actively working on an optimized solution to improve search response times. A patch is scheduled for deployment in the coming week, and we expect it to resolve the timeout issues. You will receive a follow-up update once the change is live and verified. We apologize for the inconvenience and thank you for bringing this to our attention.",
+          "reasoningSummary": "The response acknowledges the customer’s issue, provides a clear explanation of the root cause, confirms active resolution efforts, and offers a realistic timeline without overpromising. It maintains a professional tone and aligns with the goal of resolution while respecting constraints on making unverified promises.",
+          "tone": "professional",
+          "suggestedTags": [
+            "PERFORMANCE"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 0.95,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    }
+  ]
+}

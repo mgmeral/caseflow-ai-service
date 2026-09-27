@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * <p>Required properties:
  * <ul>
  *   <li>DB_URL / DB_USERNAME / DB_PASSWORD — PostgreSQL for ingestion job tracking</li>
- *   <li>OLLAMA_BASE_URL — LLM and embedding provider</li>
+ *   <li>AI_CHAT_BASE_URL / AI_EMBED_BASE_URL — OpenAI-compatible LLM and embedding servers</li>
  *   <li>QDRANT_HOST / QDRANT_PORT — Vector store</li>
  * </ul>
  *
@@ -31,8 +31,8 @@ public class AppConfig {
     private int chunkOverlap = 50;
     private int qdrantHttpPort = 6333;
 
-    /** Must match spring.ai.ollama.chat.options.model for accurate response metadata. */
-    private String modelName = "llama3.1";
+    /** Reported in response metadata; bound to spring.ai.openai.chat.options.model in application.yml. */
+    private String modelName = "unknown";
 
     private Async async = new Async();
     private Prompt prompt = new Prompt();

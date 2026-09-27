@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ModelStatusResponse {
-    private boolean ollamaReachable;
+    private boolean chatModelReachable;
+    private boolean embeddingModelReachable;
     private boolean qdrantReachable;
     private String chatModel;
     private String embeddingModel;

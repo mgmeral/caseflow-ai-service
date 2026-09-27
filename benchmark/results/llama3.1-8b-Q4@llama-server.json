@@ -1,0 +1,1246 @@
+{
+  "label": "llama3.1-8b-Q4@llama-server",
+  "service": "http://localhost:8081",
+  "report": {
+    "summary": {
+      "p50ms": 10069,
+      "p95ms": 12818,
+      "modelOk": "100%",
+      "jsonOk": "100%",
+      "langOk": "100%"
+    },
+    "draft": {
+      "p50ms": 10215,
+      "p95ms": 12349,
+      "modelOk": "100%",
+      "jsonOk": "100%",
+      "langOk": "100%"
+    }
+  },
+  "results": [
+    {
+      "id": "tr-01",
+      "locale": "tr",
+      "summary": {
+        "ms": 11207,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "687d843c-207c-4c4c-92f9-10cce7a24d64",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:19:06.990217Z",
+          "latencyMs": 11195,
+          "ticketId": "tr-01",
+          "summary": "Anadolu Lojistik müşterisi, dün şifresini değiştirdikten sonra sisteme giriş yapamıyor ve 'Geçersiz kimlik bilgileri' hatası alıyor. Müşteri acil yardım istiyor.",
+          "customerIntent": "Sisteme giriş yapabilmek",
+          "keyPoints": [
+            "Hesap kilitli değil, son başarılı giriş 3 gün önce.",
+            "Müşteri bugün saat 15:00'e kadar rapor yüklemeli"
+          ],
+          "riskSignals": [
+            "Acil yardım talebi",
+            "SLA süresi yaklaşıyor"
+          ],
+          "suggestedNextStep": "Hesap durumunu kontrol etmek ve müşteri ile iletişime geçmek",
+          "confidence": 0.9,
+          "citations": [
+            "2026-09-20T09:00:00Z",
+            "2026-09-21T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 9903,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "94368c9d-f39f-4e74-8dca-62d16b2a80e7",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:19:16.889083700Z",
+          "latencyMs": 9889,
+          "ticketId": "tr-01",
+          "suggestedSubject": "Talebiniz Hakkında Güncelleme",
+          "suggestedBody": "Merhaba Anadolu Lojistik, hesabınızı kontrol ettik ve herhangi bir sorun bulamadık. 'Geçersiz kimlik bilgileri' hatası alıyorsanız, lütfen hesabınızın güncel şifrenizi kontrol edin. Eğer sorun devam ediyorsa, lütfen bize geri bildirimde bulunun.",
+          "reasoningSummary": "Hesap kilitli değil ve son başarılı giriş 3 gün önce gerçekleşti. Müşteri hesabını kontrol ettik ve herhangi bir sorun bulamadık.",
+          "tone": "professional",
+          "suggestedTags": [
+            "AUTH"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 0.9,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-02",
+      "locale": "tr",
+      "summary": {
+        "ms": 9580,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "9d74fcc7-4f67-4d11-b74a-5fa5e268b1a7",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:19:26.479340500Z",
+          "latencyMs": 9565,
+          "ticketId": "tr-02",
+          "summary": "Ege Tekstil müşteri, Eylül faturasında aynı hizmet için iki kez ücretlendirildiğini belirtiyor ve fatura no FT-2026-0912 için iade talep ediyor.",
+          "customerIntent": "Faturalı hizmetten iade talep etmek",
+          "keyPoints": [
+            "Fatura no FT-2026-0912",
+            "İki kez ücretlendirildi",
+            "İade talep ediliyor"
+          ],
+          "riskSignals": [
+            "İade talebi",
+            "Faturalı hizmet"
+          ],
+          "suggestedNextStep": "Faturayı incelemeyi ve iade talebini onaylamayı öneririm.",
+          "confidence": 0.8,
+          "citations": [
+            "2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 12848,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "49ec86be-34c0-4ff7-a96b-9631d05e3739",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:19:39.324147300Z",
+          "latencyMs": 12822,
+          "ticketId": "tr-02",
+          "suggestedSubject": "Ege Tekstil - Fatura İade Talebi",
+          "suggestedBody": "Merhaba Ege Tekstil, teşekkür ederiz ki fatura sorununuza ilgilendiğiniz için bize ulaştınız. Fatura no FT-2026-0912'de aynı hizmet için iki kez ücretlendirildiğini gördük. Lütfen faturanızı kontrol ediniz ve aynı hizmeti iki kez ücretlendirmeyen yeni faturayı bize gönderiniz. İade talebinizi değerlendireceğiz. Eğer herhangi bir sorunuz varsa lütfen bize bildiriniz.",
+          "reasoningSummary": "Fatura sorununuza yönelik çözüm için müşteri ile iletişime geçtik. Müşterinin faturasını kontrol etmesi ve aynı hizmeti iki kez ücretlendirmeyen yeni faturayı göndermesi istendi.",
+          "tone": "professional",
+          "suggestedTags": [
+            "BILLING"
+          ],
+          "suggestedPriority": "MEDIUM",
+          "confidence": 0.9,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-03",
+      "locale": "tr",
+      "summary": {
+        "ms": 17702,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "dc0df08c-0cc0-4c3b-9329-692b42f0bbd5",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:19:57.029663400Z",
+          "latencyMs": 17698,
+          "ticketId": "tr-03",
+          "summary": "Karadeniz Gıda'nın sipariş API'si sabahtan beri 503 hata koduyla çalışmıyor, ciddi ciro kaybı yaşanıyor. Altyapı ekibi load balancer sertifikasının süresinin dolduğunu tespit etti.",
+          "customerIntent": "Sipariş API'sini düzeltmek ve mağazalarda sipariş alabilme sorununu gidermek",
+          "keyPoints": [
+            "Sipariş API'si sabahtan beri 503 hata koduyla çalışmıyor",
+            "Tüm mağazalar sipariş alamıyor",
+            "Ciddi ciro kaybı yaşanıyor",
+            "Altyapı ekibi load balancer sertifikasının süresinin dolduğunu tespit etti"
+          ],
+          "riskSignals": [
+            "Ciddi ciro kaybı",
+            "Sipariş API'sinin uzun süre çalışmaması"
+          ],
+          "suggestedNextStep": "Sipariş API'sini düzeltmek için altyapı ekibini yönlendirmek",
+          "confidence": 0.9,
+          "citations": [
+            "2026-09-20T09:00:00Z: c***@example.com",
+            "2026-09-22T09:00:00Z: c***@example.com"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 10866,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "68ec97e3-1f20-4cf4-acb8-2167d86697cc",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:20:07.897484400Z",
+          "latencyMs": 10858,
+          "ticketId": "tr-03",
+          "suggestedSubject": "Sipariş API'nin Durumu",
+          "suggestedBody": "Sipariş API'nin 503 hata kodunu almanızın devam eden nedenini belirlemek için ekibimiz devam ediyor. Yük dengesi altyapısı ekibi, load balancer sertifikasının süresinin dolduğunu tespit etti. Bu sorunu gidermek için çalışıyoruz. Lütfen daha fazla bilgi için bizi takip ediniz.",
+          "reasoningSummary": "Sorunun nedenini belirlemek ve çözümlemek için ekibimiz devam ediyor.",
+          "tone": "professional",
+          "suggestedTags": [
+            "OUTAGE",
+            "API"
+          ],
+          "suggestedPriority": "CRITICAL",
+          "confidence": 0.8,
+          "warnings": [
+            "Sorunun çözümü için ekibimiz devam ediyor, ancak belirli bir zamanlama hakkında bilgi veremem."
+          ]
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-04",
+      "locale": "tr",
+      "summary": {
+        "ms": 10752,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "ab35a850-0786-494a-87ec-0bf67765edee",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:20:18.650385400Z",
+          "latencyMs": 10748,
+          "ticketId": "tr-04",
+          "summary": "Marmara Otomotiv, muhasebe programının CSV dosyasını desteklediğini belirtiyor ve Excel yerine CSV rapor indirme özelliğini talep ediyor.",
+          "customerIntent": "CSV dosyasını destekleyen rapor indirme özelliğini elde etmek",
+          "keyPoints": [
+            "Muhasebe programı CSV dosyasını kabul ediyor",
+            "Raporları Excel yerine CSV olarak indirmek istendi"
+          ],
+          "riskSignals": [
+            "SLA durumu normal",
+            "Priorite düşük"
+          ],
+          "suggestedNextStep": "Marmara Otomotiv'e rapor indirme seçenekleri hakkında bilgi verin ve CSV dosyasını destekleyen rapor indirme özelliğini açıklamayı önerin",
+          "confidence": 0.8,
+          "citations": [
+            "2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 11175,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "7b93ca56-bcdf-47e9-bffe-03619dfe2c1b",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:20:29.824065900Z",
+          "latencyMs": 11169,
+          "ticketId": "tr-04",
+          "suggestedSubject": "Marmara Otomotiv - CSV Rapor İndirme Önerisi",
+          "suggestedBody": "Merhaba Marmara Otomotiv ekibimiz, raporlarınızı Excel yerine CSV olarak indirebilmeyi planlıyoruz. Ancak, bu özellik henüz mevcut değildir. Lütfen bu talebinizi destek ekibimize iletmek için [buraya](link) tıklayınız. Bu sayede talebinizi daha detaylı bir şekilde inceleyebiliriz. Teşekkür ederiz.",
+          "reasoningSummary": "Talebi inceleyerek, müşteri talebini destek ekibine iletmek için bir bağlantı gönderdik.",
+          "tone": "professional",
+          "suggestedTags": [
+            "FEATURE_REQUEST"
+          ],
+          "suggestedPriority": "LOW",
+          "confidence": 0.8,
+          "warnings": [
+            "Talebiniz henüz desteklenmemiştir."
+          ]
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-05",
+      "locale": "tr",
+      "summary": {
+        "ms": 9335,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "e1f61b89-866f-45c9-87ff-0056f8194cc4",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:20:39.160838800Z",
+          "latencyMs": 9325,
+          "ticketId": "tr-05",
+          "summary": "Akdeniz Turizm'in yeni kullanıcı eklerken e-posta davetleri gitmiyor. 12 personelin sisteme erişememesi nedeniyle yüksek öncelikli bir durum.",
+          "customerIntent": "Yeni kullanıcı eklemek ve e-posta davetlerini alabilmek",
+          "keyPoints": [
+            "E-posta davetleri gitmiyor",
+            "12 personelin sisteme erişememesi",
+            "Mail sağlayıcısı loglarında bounce görünüyor"
+          ],
+          "riskSignals": [
+            "Hızlı çözüm gerektiren yüksek öncelikli durum"
+          ],
+          "suggestedNextStep": "Mail sağlayıcısı loglarında SPF kaydı eksik olup olmadığını kontrol etmek",
+          "confidence": 0.9,
+          "citations": [
+            "c***@example.com"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 10215,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "d65a0d99-071d-4801-ae43-1ca851a9298f",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:20:49.367547400Z",
+          "latencyMs": 10202,
+          "ticketId": "tr-05",
+          "suggestedSubject": "Yeni Kullanıcı Ekleme Sorunu",
+          "suggestedBody": "Merhaba Akdeniz Turizm ekibi, yeni kullanıcı eklerken e-posta davetleri gönderilememesinin nedenini araştırmaktayız. Mail sağlayıcısı loglarında bounce görünüyor ve SPF kaydı eksik olabileceği düşünülmektedir. Lütfen bu konuyu daha detaylı incelemek için bizimle iletişime geçin.",
+          "reasoningSummary": "Sorunun nedeni araştırılmakta ve çözüm önerileri sunulacaktır.",
+          "tone": "professional",
+          "suggestedTags": [
+            "DATA"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 0.8,
+          "warnings": [
+            "Sorunun çözümü için ek zaman gerekebilir"
+          ]
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-06",
+      "locale": "tr",
+      "summary": {
+        "ms": 11868,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "64551b22-34e9-4405-a407-9fb4ea72d1db",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:21:01.245348200Z",
+          "latencyMs": 11863,
+          "ticketId": "tr-06",
+          "summary": "Trakya Enerji'nin sozlesme planını yillik plana gecirmek istedikleri ve indirim uygulandı mı sorusunu cevaplamak gerekiyor.",
+          "customerIntent": "Yillik plana gecis ve indirim uygulamasi",
+          "keyPoints": [
+            "Sozlesme planını yillik plana gecirmek istedikleri",
+            "Mevcut aylik planin ay sonuna kadar yenilenmesi"
+          ],
+          "riskSignals": [
+            "Ay sonuna kadar yenilenen planin etkileri"
+          ],
+          "suggestedNextStep": "Trakya Enerji'nin sozlesme planını yillik plana gecirmek istedikleri ve indirim uygulandı mı sorusunu cevaplamak için daha fazla bilgi istemek.",
+          "confidence": 0.8,
+          "citations": [
+            "2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 12349,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "30e11dc7-00a4-4cf1-9c0f-789fabc30ed9",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:21:13.594859600Z",
+          "latencyMs": 12344,
+          "ticketId": "tr-06",
+          "suggestedSubject": "Re: Sozlesmemizi yillik plana gecirmek istiyoruz",
+          "suggestedBody": "Merhaba Trakya Enerji ekibi, sozlesmeniz yillik plana gecirmek isteginizi aldık. Indirim uygulandığını doğrulayamıyoruz. Lütfen mevcut aylik planınızı yenilemek için ay sonuna kadar herhangi bir işlem yapın. Daha sonra, yillik plana gecis için yeni bir sozlesme imzalamak isteyebilirsiniz. Lütfen bu konudaki sonraki adımlarınızla ilgili olarak bize geri bildirimde bulunun.",
+          "reasoningSummary": "Sorunun temelini anladık ve sorunu çözmek için uygun adımları önerdik.",
+          "tone": "professional",
+          "suggestedTags": [
+            "CONTRACT"
+          ],
+          "suggestedPriority": "MEDIUM",
+          "confidence": 1,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-07",
+      "locale": "tr",
+      "summary": {
+        "ms": 10166,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "d1ac577d-b7b3-41ce-acdc-0830e2bcd053",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:21:23.761077800Z",
+          "latencyMs": 10161,
+          "ticketId": "tr-07",
+          "summary": "Doğu Sağlık'nın hesabının kapatılmasını ve erişim kayıtlarının paylaşılmasını istemesi nedeniyle yüksek öncelikli bir güvenlik sorunu var.",
+          "customerIntent": "Hesabının kapatılmasını ve erişim kayıtlarının paylaşılmasını istemek",
+          "keyPoints": [
+            "Hesap hâlâ aktif görünüyor",
+            "Giriş IP adresi şirket dışı",
+            "Güvenlik ekibine eskale edildi"
+          ],
+          "riskSignals": [
+            "Hesap hâlâ aktif",
+            "Şirket dışı giriş"
+          ],
+          "suggestedNextStep": "Hesabın kapatılmasını ve erişim kayıtlarının paylaşılmasını sağlamak",
+          "confidence": 0.9,
+          "citations": [
+            "2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 11474,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "c86a8328-42f6-46a4-a367-f9d2d1a56cdc",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:21:35.233409800Z",
+          "latencyMs": 11465,
+          "ticketId": "tr-07",
+          "suggestedSubject": "Konu: Hesap Kapatma ve Erişim Kayıtları",
+          "suggestedBody": "Merhaba Doğu Sağlık ekibi, hesabın kapatılması ve erişim kayıtlarının paylaşılması talebiniz üzerine, güvenlik ekibimize bu konuyu aktarmıştık. Hesapın kapatılması ve erişim kayıtlarının tarafınıza iletilmesi için gerekli adımlar atılmaktadır. Lütfen bu konudaki ilerlemeleri takip edebilirsiniz.",
+          "reasoningSummary": "Güvenlik ekibine eskale edilmiş ve gerekli adımlar atılmaktadır.",
+          "tone": "professional",
+          "suggestedTags": [
+            "SECURITY"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 0.9,
+          "warnings": [
+            "Giriş IP adresi şirket dışı olduğu için ekstra güvenlik önlemleri alınmıştır."
+          ]
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-08",
+      "locale": "tr",
+      "summary": {
+        "ms": 10567,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "9f0e79d9-a097-45d7-8b82-ed8ecbd611f0",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:21:45.803642900Z",
+          "latencyMs": 10560,
+          "ticketId": "tr-08",
+          "summary": "İç Anadolu Tarım müşteri panelinde tarih filtresini değiştirmek için destek talebiydi. Sorun çözüldü.",
+          "customerIntent": "Tarih filtresini değiştirmek",
+          "keyPoints": [
+            "Müşteri panelinde tarih filtresini değiştirmek istiyordu",
+            "Varsayılan olarak sadece son 7 günü gösteriyordu",
+            "Sorun çözüldü"
+          ],
+          "riskSignals": [],
+          "suggestedNextStep": "Beklenenden daha fazla destek talebi gelirse kontrol etmek",
+          "confidence": 1,
+          "citations": [
+            "2026-09-21T09:00:00Z",
+            "2026-09-22T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 7841,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "98118f50-1dd9-4a95-8ccb-8c92a9d8f029",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:21:53.645942600Z",
+          "latencyMs": 7838,
+          "ticketId": "tr-08",
+          "suggestedSubject": "Konu: Panelde Tarih Filtresini Değiştirme",
+          "suggestedBody": "Teşekkür ederiz ki sorun çözüldü. Panelde tarih filtresini değiştirmek için, sağ üstteki takvim simgesinden tarih aralığını seçebilirsiniz. Bu ayar, tercihlerinize göre kaydedilir.",
+          "reasoningSummary": "Sorunun çözümü için önceki yanıt referans alınmıştır.",
+          "tone": "professional",
+          "suggestedTags": [
+            "HOWTO"
+          ],
+          "suggestedPriority": "LOW",
+          "confidence": 1,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-09",
+      "locale": "tr",
+      "summary": {
+        "ms": 11909,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "0c3f65df-5d1f-412a-86bc-d955e19430c3",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:22:05.554461100Z",
+          "latencyMs": 11905,
+          "ticketId": "tr-09",
+          "summary": "Güneydoğu Yapı'nın Jira entegrasyonu kuruldu ancak biletler Jira'ya aktarılamıyor. Test bağlantısı başarılı görünüyor. Proje anahtarı CFY.",
+          "customerIntent": "Jira entegrasyonunu başarılı bir şekilde kurmak",
+          "keyPoints": [
+            "Jira entegrasyonu kuruldu",
+            "Biletler Jira'ya aktarılamıyor",
+            "Test bağlantısı başarılı görünüyor",
+            "Proje anahtarı CFY"
+          ],
+          "riskSignals": [
+            "Eşleme hatası olabilir"
+          ],
+          "suggestedNextStep": "Jira tarafındaki 'Bug' issue tipinin neden yok olduğunu ve eşleme hatasını gidermek için adımlar atmak",
+          "confidence": 0.8,
+          "citations": [
+            "2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 9565,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "d91a5a80-be85-4c60-9ead-f4b0ace74c55",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:22:15.119951700Z",
+          "latencyMs": 9552,
+          "ticketId": "tr-09",
+          "suggestedSubject": "Jira Entegrasyonu Sorunu",
+          "suggestedBody": "Merhaba Güneydoğu Yapı ekibi, Jira entegrasyonunda yaşanan sorunları gidermek için çalışıyoruz. Lütfen projenizi terk etmeden bekleyin. Jira tarafında 'Task' issue tipi ile eşleme hatası olabilir. Bu sorunu çözmek için ekibimizle iletişime geçeceğiz.",
+          "reasoningSummary": "Sorunun çözümü için Jira tarafında issue tipi ile eşleme hatası olabileceği değerlendirildi.",
+          "tone": "professional",
+          "suggestedTags": [
+            "INTEGRATION"
+          ],
+          "suggestedPriority": "MEDIUM",
+          "confidence": 0.8,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "tr-10",
+      "locale": "tr",
+      "summary": {
+        "ms": 12102,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "b67c4ff1-d4df-43c2-8c01-c7adcfa0fb6c",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:22:27.221423400Z",
+          "latencyMs": 12096,
+          "ticketId": "tr-10",
+          "summary": "Başkent Eğitim müşterisi, 09:00-10:00 saatleri arasında sistem yavaşladığını ve sayfaların 20 saniyede açılmasını, öğretmenlerin ders kaydı yapamamasını bildirdi.",
+          "customerIntent": "Sistem hızı ve öğretmenlerin ders kaydı yapabilme sorununu gidermek",
+          "keyPoints": [
+            "Sistem yavaşlığı",
+            "Sayfa açma süresi 20 saniye",
+            "Öğretmenlerin ders kaydı yapamaması"
+          ],
+          "riskSignals": [
+            "Sistem hızı ve erişilebilirlik sorunları"
+          ],
+          "suggestedNextStep": "Sistem hızı ve erişilebilirliği kontrol etmek ve öğretmenlerin sorunlarını gidermek için gerekli adımları atmak",
+          "confidence": 0.9,
+          "citations": [
+            "2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 10113,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "93ed0e0d-83df-455f-a2b1-64ebb032566f",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:22:37.335876300Z",
+          "latencyMs": 10109,
+          "ticketId": "tr-10",
+          "suggestedSubject": "Başarıyla Sorununuzun Çözümleme Sürecine Başlanıyor",
+          "suggestedBody": "Merhaba Başkent Eğitim ekibi, sistem yavaşlamasının ve sayfaların uzun süre açılmasının nedenini belirlemek için teknik ekibimize başvurduk. Sorununuzun çözümü için gerekli adımları atmaya başladık. Lütfen sistemde herhangi bir değişiklik gözlemleyip gözlemlemediğinizi bildirmek için bize geri bildirin.",
+          "reasoningSummary": "Sorunun çözümüne yönelik adımlar atıldı. Müşterinin geri bildirimi bekleniyor.",
+          "tone": "professional",
+          "suggestedTags": [
+            "PERFORMANCE"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 0.8,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-01",
+      "locale": "en",
+      "summary": {
+        "ms": 11940,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "e68ce0c6-fe98-4dfc-a779-fd274f25decb",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:22:49.277891600Z",
+          "latencyMs": 11935,
+          "ticketId": "en-01",
+          "summary": "Northwind Retail is experiencing a high-priority issue with their SSO login, which is looping back to the sign-in page after yesterday's update, affecting 40 agents. They need this resolved today.",
+          "customerIntent": "Resolve the SSO login issue to allow agents to access the system.",
+          "keyPoints": [
+            "SSO login loops back to sign-in page after update",
+            "40 agents affected",
+            "Customer needs resolution today"
+          ],
+          "riskSignals": [
+            "High priority and urgency due to impact on business operations"
+          ],
+          "suggestedNextStep": "Investigate the SAML ACS URL change and its impact on the customer's IdP configuration.",
+          "confidence": 0.9,
+          "citations": [
+            "Message from customer on 2026-09-20T09:00:00Z",
+            "Internal note: SAML ACS URL changed in the release"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 12030,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "ea2ce877-8f3e-4a5d-9888-1a0b137a4b22",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:23:01.305809100Z",
+          "latencyMs": 12023,
+          "ticketId": "en-01",
+          "suggestedSubject": "Re: SSO Login Issue at Northwind Retail",
+          "suggestedBody": "Dear Northwind Retail Team, we've identified the cause of the SSO login loop issue. Our investigation revealed that the SAML ACS URL was updated in the recent release, but your Identity Provider (IdP) still points to the old URL. We're working on updating the IdP configuration to match the new SAML ACS URL. Please allow us some time to complete this task. We'll notify you as soon as the issue is resolved.",
+          "reasoningSummary": "We've identified the root cause of the issue and are working on updating the customer's IdP configuration to match the new SAML ACS URL.",
+          "tone": "professional",
+          "suggestedTags": [
+            "AUTH"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 0.9,
+          "warnings": [
+            "We're doing our best to resolve this issue as soon as possible, but we cannot provide a specific timeline for resolution."
+          ]
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-02",
+      "locale": "en",
+      "summary": {
+        "ms": 8872,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "b1c6acac-6edb-457f-bc75-7025f214c997",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:23:10.181287Z",
+          "latencyMs": 8864,
+          "ticketId": "en-02",
+          "summary": "Contoso Health's invoice shows 55 seats, but they only have 42 active users, requesting a correction and credit for the difference.",
+          "customerIntent": "Correct billing issue due to mismatch between invoice and actual user count.",
+          "keyPoints": [
+            "Invoice shows 55 seats, but Contoso Health has 42 active users",
+            "Request to correct invoice and credit the difference"
+          ],
+          "riskSignals": [
+            "Potential billing error",
+            "Customer dissatisfaction if not resolved promptly"
+          ],
+          "suggestedNextStep": "Verify Contoso Health's user count and initiate a billing correction process.",
+          "confidence": 0.9,
+          "citations": [
+            "2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 7563,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "c8fc5661-25e4-4329-ab6a-082e2d85e70c",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:23:17.742832500Z",
+          "latencyMs": 7556,
+          "ticketId": "en-02",
+          "suggestedSubject": "Re: Invoice Correction for Contoso Health",
+          "suggestedBody": "Thank you for bringing this to our attention. We will review your invoice and correct the discrepancy. Please allow us some time to investigate and update your account accordingly. We will be in touch shortly with the outcome.",
+          "reasoningSummary": "Acknowledged the customer's concern, committed to investigating and correcting the issue, and provided a general timeline for resolution.",
+          "tone": "professional",
+          "suggestedTags": [
+            "BILLING"
+          ],
+          "suggestedPriority": "MEDIUM",
+          "confidence": 0.9,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-03",
+      "locale": "en",
+      "summary": {
+        "ms": 12818,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "e342c521-ebb5-4447-b661-2a89d4a59b61",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:23:30.562331900Z",
+          "latencyMs": 12815,
+          "ticketId": "en-03",
+          "summary": "Fabrikam Logistics is experiencing a critical production outage due to stopped webhook deliveries, which are essential for their warehouse system. The issue started after a Redis failover caused a webhook worker queue backup.",
+          "customerIntent": "Restore webhook deliveries to prevent business disruption",
+          "keyPoints": [
+            "Webhook deliveries stopped at 02:00 UTC",
+            "Warehouse system depends on webhook deliveries",
+            "Customer has been waiting for 3 hours for an update",
+            "Webhook worker queue backed up after Redis failover"
+          ],
+          "riskSignals": [
+            "Production outage with potential business impact"
+          ],
+          "suggestedNextStep": "Investigate the Redis failover and webhook worker queue backup to identify the root cause and implement a solution",
+          "confidence": 0.9,
+          "citations": [
+            "Message from customer on 2026-09-20T09:00:00Z",
+            "Message from customer on 2026-09-21T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 9667,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "ae66ebe2-a053-480d-97f5-2a03b5eff78d",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:23:40.226437600Z",
+          "latencyMs": 9664,
+          "ticketId": "en-03",
+          "suggestedSubject": "Update on Webhook Deliveries Outage",
+          "suggestedBody": "Dear Fabrikam Logistics Team, we apologize for the ongoing production outage affecting your warehouse system. Our team has been working to resolve the issue with the Redis failover and the backed-up webhook worker queue. We are making progress and will provide an update as soon as possible. Thank you for your patience and understanding.",
+          "reasoningSummary": "Providing a status update and acknowledging the customer's concern to maintain transparency and show proactive effort towards resolution.",
+          "tone": "professional",
+          "suggestedTags": [
+            "OUTAGE"
+          ],
+          "suggestedPriority": "CRITICAL",
+          "confidence": 0.8,
+          "warnings": [
+            "No specific SLA timeline was provided, and the resolution date is uncertain."
+          ]
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-04",
+      "locale": "en",
+      "summary": {
+        "ms": 9754,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "2e13b3d3-e15e-46eb-bb75-64de80e6cd1c",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:23:49.986172100Z",
+          "latencyMs": 9739,
+          "ticketId": "en-04",
+          "summary": "Customer Adventure Works is seeking to export all tickets from last quarter, including internal notes, but is unsure about the file format.",
+          "customerIntent": "Export all tickets from last quarter, including internal notes",
+          "keyPoints": [
+            "Customer is looking to export tickets from last quarter",
+            "Internal notes should be included in the export",
+            "Customer is unsure about the file format"
+          ],
+          "riskSignals": [
+            "Low priority ticket"
+          ],
+          "suggestedNextStep": "Ask the customer to confirm the file format requirements",
+          "confidence": 0.8,
+          "citations": [
+            "2026-09-20T09:00:00Z (customer message)",
+            "2026-09-21T09:00:00Z (agent response)"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 10279,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "c97b78c4-f367-48cb-9522-cdadc2ef2808",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:24:00.265297700Z",
+          "latencyMs": 10275,
+          "ticketId": "en-04",
+          "suggestedSubject": "Re: Exporting Tickets from Last Quarter",
+          "suggestedBody": "To export all tickets from last quarter including internal notes, please follow these steps: 1. Log in to the ticketing system. 2. Navigate to the 'Reports' section. 3. Select 'Tickets' as the report type. 4. Choose the date range for last quarter. 5. Ensure the 'Include internal notes' option is selected. 6. Click 'Generate Report' to download the report in CSV format.",
+          "reasoningSummary": "Provided the customer with step-by-step instructions to export tickets from last quarter, including internal notes.",
+          "tone": "professional",
+          "suggestedTags": [
+            "HOWTO"
+          ],
+          "suggestedPriority": "LOW",
+          "confidence": 1,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-05",
+      "locale": "en",
+      "summary": {
+        "ms": 10065,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "adafb5fb-5a94-4ddb-a630-0ce26f56cd1e",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:24:10.324995900Z",
+          "latencyMs": 10049,
+          "ticketId": "en-05",
+          "summary": "Customer Tailspin Toys reports 300 customer records disappeared after CSV import using 'replace' mode, which was not intended. Backups from 06:00 are available.",
+          "customerIntent": "Restore missing customer records",
+          "keyPoints": [
+            "Customer records disappeared after CSV import",
+            "Import used 'replace' mode instead of 'merge'",
+            "Backups from 06:00 are available"
+          ],
+          "riskSignals": [
+            "High priority due to missing customer records"
+          ],
+          "suggestedNextStep": "Investigate the import process and restore records from backups",
+          "confidence": 0.9,
+          "citations": [
+            "Message from c***@example.com on 2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 12007,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "396e838b-92b5-481a-98df-5e8e8c53aafe",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:24:22.329103100Z",
+          "latencyMs": 11991,
+          "ticketId": "en-05",
+          "suggestedSubject": "Re: About 300 customer records disappeared from our account after the CSV import this morning",
+          "suggestedBody": "Dear Tailspin Toys team, we apologize for the inconvenience caused by the missing customer records. Our team is currently investigating the issue and reviewing the import process. We have accessed the backups from 06:00 and are working to restore the affected records. We will provide an update as soon as possible. Please let us know if there's anything else we can assist you with in the meantime.",
+          "reasoningSummary": "We're focusing on resolving the issue by restoring the missing records from the available backups and reviewing the import process to prevent similar incidents in the future.",
+          "tone": "professional",
+          "suggestedTags": [
+            "DATA"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 0.8,
+          "warnings": [
+            "We're doing our best to resolve the issue as quickly as possible, but we cannot provide a specific timeline for resolution at this time."
+          ]
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-06",
+      "locale": "en",
+      "summary": {
+        "ms": 7354,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "f6fe92d2-619b-443b-b3f3-f277339bbf0c",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:24:29.687477800Z",
+          "latencyMs": 7339,
+          "ticketId": "en-06",
+          "summary": "Wide World Importers wants to cancel their subscription at the end of the term, asking about the notice period and data export.",
+          "customerIntent": "Cancel subscription and export data",
+          "keyPoints": [
+            "Notice period for subscription cancellation",
+            "Data export process"
+          ],
+          "riskSignals": [
+            "Potential data loss if not exported correctly"
+          ],
+          "suggestedNextStep": "Ask for the subscription term end date and confirm the notice period",
+          "confidence": 0.8,
+          "citations": [
+            "2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 10670,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "7d674e16-78ba-4a58-b83d-296e37494095",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:24:40.361203600Z",
+          "latencyMs": 10660,
+          "ticketId": "en-06",
+          "suggestedSubject": "Re: Subscription Cancellation and Data Export",
+          "suggestedBody": "Dear Wide World Importers, thank you for reaching out to us about your subscription. We'd be happy to assist you with cancelling your subscription at the end of the term. Our standard notice period is 30 days prior to the end of the term. Regarding data export, we can provide you with a downloadable file containing all your data. Please let us know if you'd like to proceed with the cancellation and data export process, and we'll guide you through the necessary steps.",
+          "reasoningSummary": "Provided a clear and concise response to the customer's inquiry, outlining the necessary steps for subscription cancellation and data export.",
+          "tone": "professional",
+          "suggestedTags": [
+            "CONTRACT"
+          ],
+          "suggestedPriority": "MEDIUM",
+          "confidence": 1,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-07",
+      "locale": "en",
+      "summary": {
+        "ms": 9227,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "83741439-75ae-4da2-8994-d97d28bd01f1",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:24:49.591907500Z",
+          "latencyMs": 9220,
+          "ticketId": "en-07",
+          "summary": "Litware Security reports a phishing email that appears to be from our support address, and they're concerned about potential domain compromise.",
+          "customerIntent": "Confirm whether our domain was compromised due to the phishing email.",
+          "keyPoints": [
+            "Phishing email reported by Litware Security",
+            "DMARC reports show spoofing from an external IP",
+            "Our domain was not compromised"
+          ],
+          "riskSignals": [
+            "Potential security breach",
+            "Customer concern about domain integrity"
+          ],
+          "suggestedNextStep": "Provide a detailed explanation of the DMARC report findings and reassure Litware Security about the safety of our domain.",
+          "confidence": 0.8,
+          "citations": [
+            "2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 9164,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "c42d8fa0-67f0-4d46-860f-7caff025dd7a",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:24:58.762629600Z",
+          "latencyMs": 9156,
+          "ticketId": "en-07",
+          "suggestedSubject": "Re: Phishing Email Concern",
+          "suggestedBody": "Thank you for reaching out to us about the phishing email that you received. Our investigation has confirmed that your domain was not compromised, and the spoofing was done from an external IP. We have reviewed our DMARC reports and can assure you that our security measures are in place to prevent such incidents. If you have any further concerns or questions, please don't hesitate to contact us.",
+          "reasoningSummary": "We have reviewed the DMARC reports and confirmed that the customer's domain was not compromised.",
+          "tone": "professional",
+          "suggestedTags": [
+            "SECURITY"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 1,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-08",
+      "locale": "en",
+      "summary": {
+        "ms": 9334,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "0a53683a-e131-48bb-8a71-1dce67286c3d",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:25:08.097568500Z",
+          "latencyMs": 9330,
+          "ticketId": "en-08",
+          "summary": "Customer reported an issue with dark mode making status badges unreadable, which was resolved in the latest release.",
+          "customerIntent": "Report an issue with the UI in dark mode",
+          "keyPoints": [
+            "Customer confirmed the issue was resolved after the latest release",
+            "Ticket was resolved and customer confirmed it's working as expected"
+          ],
+          "riskSignals": [],
+          "suggestedNextStep": "Verify that the customer's issue is fully resolved and close the ticket if necessary",
+          "confidence": 1,
+          "citations": [
+            "2026-09-21T09:00:00Z - Agent response confirming the fix",
+            "2026-09-22T09:00:00Z - Customer confirmation that the issue is resolved"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 6524,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "aabef886-75af-4937-890a-53c90eec1070",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:25:14.621477400Z",
+          "latencyMs": 6520,
+          "ticketId": "en-08",
+          "suggestedSubject": "Re: The dark mode makes the status badges unreadable",
+          "suggestedBody": "Thank you for confirming that the issue is now resolved. If you have any further questions or concerns, please don't hesitate to reach out to us.",
+          "reasoningSummary": "The customer has confirmed that the issue is resolved, and no further action is required.",
+          "tone": "professional",
+          "suggestedTags": [
+            "UI"
+          ],
+          "suggestedPriority": "LOW",
+          "confidence": 1,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-09",
+      "locale": "en",
+      "summary": {
+        "ms": 9454,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "72d1e879-177f-4922-add7-21a4fb97c6d4",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:25:24.076491700Z",
+          "latencyMs": 9449,
+          "ticketId": "en-09",
+          "summary": "Coho Winery is experiencing issues with Slack notifications arriving twice for every ticket update due to a reconnected integration. The customer has two channel configs for the same Slack workspace.",
+          "customerIntent": "Resolve the issue with duplicate Slack notifications.",
+          "keyPoints": [
+            "Two channel configs exist for the same Slack workspace.",
+            "Slack notifications arrive twice for every ticket update.",
+            "Integration was reconnected.",
+            "Customer is experiencing medium priority issue."
+          ],
+          "riskSignals": [
+            "Potential data loss or confusion due to duplicate notifications."
+          ],
+          "suggestedNextStep": "Investigate and resolve the channel config issue to prevent duplicate notifications.",
+          "confidence": 0.8,
+          "citations": [
+            "2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 8695,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "ae2e1393-525e-4159-a38c-e1509f7054b5",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:25:32.770754800Z",
+          "latencyMs": 8691,
+          "ticketId": "en-09",
+          "suggestedSubject": "Re: Slack notifications arrive twice for every ticket update",
+          "suggestedBody": "Dear Coho Winery team, we've identified the issue with Slack notifications arriving twice for every ticket update. It appears that there are two channel configurations set up for the same Slack workspace. We'll work on resolving this integration issue as soon as possible. Please let us know if you have any further questions or concerns.",
+          "reasoningSummary": "We've identified the root cause of the issue and will proceed with resolving the integration problem.",
+          "tone": "professional",
+          "suggestedTags": [
+            "INTEGRATION"
+          ],
+          "suggestedPriority": "MEDIUM",
+          "confidence": 0.9,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    },
+    {
+      "id": "en-10",
+      "locale": "en",
+      "summary": {
+        "ms": 10069,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "192f2cc8-5710-412b-af73-dbf0a1f3d134",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:25:42.840437600Z",
+          "latencyMs": 10063,
+          "ticketId": "en-10",
+          "summary": "Alpine Ski House is experiencing slow search performance on their account, timing out for agents due to over 200k tickets.",
+          "customerIntent": "Resolve the slow search performance issue to prevent further agent timeouts.",
+          "keyPoints": [
+            "Search takes over 30 seconds on their account.",
+            "200k+ tickets on their account.",
+            "Agent timeouts due to slow search performance."
+          ],
+          "riskSignals": [
+            "Potential impact on customer business operations due to slow search performance.",
+            "Urgent need to resolve the issue to prevent further agent timeouts."
+          ],
+          "suggestedNextStep": "Investigate the cause of the slow search performance and provide a solution to the customer.",
+          "confidence": 0.9,
+          "citations": [
+            "2026-09-20T09:00:00Z"
+          ],
+          "warnings": []
+        },
+        "langOk": true
+      },
+      "draft": {
+        "ms": 11100,
+        "httpOk": true,
+        "modelOk": true,
+        "jsonOk": true,
+        "body": {
+          "correlationId": "c47dc957-e67d-4f6e-9f95-0a1f97176fa9",
+          "model": "bench",
+          "promptVersion": "1.1",
+          "generatedAt": "2026-09-27T10:25:53.939925700Z",
+          "latencyMs": 11096,
+          "ticketId": "en-10",
+          "suggestedSubject": "Re: Performance Issue with Search Functionality",
+          "suggestedBody": "Dear Alpine Ski House Team, we apologize for the inconvenience caused by the slow search functionality on your account. We understand that this issue is impacting your agents' productivity and timely resolution of tickets. Our team is working to investigate and resolve this issue as soon as possible. In the meantime, we recommend checking our system status page for any updates on the issue. If you have any further questions or concerns, please don't hesitate to reach out to us. We appreciate your patience and cooperation in this matter.",
+          "reasoningSummary": "We're escalating the issue to our performance team to investigate and resolve the slow search functionality on Alpine Ski House's account.",
+          "tone": "professional",
+          "suggestedTags": [
+            "PERFORMANCE"
+          ],
+          "suggestedPriority": "HIGH",
+          "confidence": 0.8,
+          "warnings": []
+        },
+        "langOk": true
+      }
+    }
+  ]
+}

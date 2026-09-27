@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
  *   <li>{@code caseflow_ai_retrieval_empty_total{operation}} — rate of empty vector retrievals</li>
  *   <li>{@code caseflow_ai_ingestion_total{status}} — ingest requested/succeeded/failed counts</li>
  *   <li>{@code caseflow_ai_model_errors_total} — LLM call failures</li>
+ *   <li>{@code caseflow_ai_model_output_not_json_total{operation}} — answers that failed JSON parsing</li>
  * </ul>
  */
 @Component
@@ -37,7 +38,10 @@ public class AiMetrics {
 
     private final Counter modelErrors;
 
+    private final MeterRegistry registry;
+
     public AiMetrics(MeterRegistry registry) {
+        this.registry = registry;
         this.summarizeRequests = counter(registry, "requests", "operation", "summarize");
         this.replyDraftRequests = counter(registry, "requests", "operation", "reply_draft");
         this.similarCasesRequests = counter(registry, "requests", "operation", "similar_cases");
@@ -77,4 +81,13 @@ public class AiMetrics {
     public void recordIngestionFailed()    { ingestionFailed.increment(); }
     public void recordIngestionSkipped()   { ingestionSkipped.increment(); }
     public void recordModelError()         { modelErrors.increment(); }
+
+    /** The model answered but its output could not be parsed as the expected JSON object. */
+    public void recordModelOutputNotJson(String operation) {
+        Counter.builder("caseflow_ai_model_output_not_json_total")
+                .description("LLM responses that could not be parsed as the expected JSON")
+                .tag("operation", operation)
+                .register(registry)
+                .increment();
+    }
 }

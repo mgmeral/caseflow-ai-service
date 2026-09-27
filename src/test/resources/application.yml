@@ -25,8 +25,16 @@ spring:
       fail-fast: false
 
   ai:
-    ollama:
-      base-url: http://localhost:11434
+    openai:
+      api-key: test-key
+      chat:
+        base-url: http://localhost:8090
+        options:
+          model: test-model
+      embedding:
+        base-url: http://localhost:8091
+        options:
+          model: test-embed
     vectorstore:
       qdrant:
         host: localhost

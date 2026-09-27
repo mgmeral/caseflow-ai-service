@@ -64,3 +64,6 @@ storage-data/
 tmp/
 temp/
 out/
+
+# Local GGUF model files for llama-server (see docker-compose.yml) — never commit
+models/
