@@ -6,20 +6,26 @@ import com.caseflow.ai.config.AppConfig;
 import com.caseflow.ai.domain.MessageItem;
 import com.caseflow.ai.observability.AiMetrics;
 import com.caseflow.ai.service.ai.ReplyDraftService;
+import com.caseflow.ai.service.rag.RetrievalFilter;
+import com.caseflow.ai.service.rag.RetrievalService;
 import com.caseflow.ai.service.prompt.ReplyDraftPromptBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.document.Document;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -29,6 +35,7 @@ class ReplyDraftServiceTest {
 
     @Mock private ChatClient chatClient;
     @Mock private ReplyDraftPromptBuilder promptBuilder;
+    @Mock private RetrievalService retrievalService;
     @Mock private ObjectMapper objectMapper;
     @Mock private AppConfig appConfig;
     @Mock private AiMetrics aiMetrics;
@@ -40,7 +47,65 @@ class ReplyDraftServiceTest {
         AppConfig.Prompt promptConfig = new AppConfig.Prompt();
         when(appConfig.getModelName()).thenReturn("test-model");
         when(appConfig.getPrompt()).thenReturn(promptConfig);
-        service = new ReplyDraftService(chatClient, promptBuilder, objectMapper, appConfig, aiMetrics);
+        service = new ReplyDraftService(chatClient, promptBuilder, retrievalService, objectMapper, appConfig, aiMetrics);
+    }
+
+    // ── Policy grounding ──────────────────────────────────────────────────────
+
+    @Test
+    void draftReply_withoutPolicySnippets_retrievesCustomerScopedPoliciesForLatestInboundMessage() throws Exception {
+        ReplyDraftRequest request = ReplyDraftRequest.builder()
+                .customerId("c1")
+                .latestMessages(List.of(
+                        MessageItem.builder().direction("inbound").preview("Can I get a refund?").build(),
+                        MessageItem.builder().direction("outbound").preview("Looking into it.").build()))
+                .build();
+        Document policy = Document.builder().text("Refunds within 30 days.")
+                .metadata(Map.of("sourceType", "POLICY", "customerId", "GLOBAL")).build();
+        when(retrievalService.search(eq("Can I get a refund?"), eq(3), eq(RetrievalFilter.policiesFor("c1"))))
+                .thenReturn(new RetrievalService.RetrievalResult(List.of(policy), false, null));
+        when(promptBuilder.build(any())).thenReturn("draft prompt");
+        wireChatClient("{\"suggestedBody\":\"ok\"}");
+        when(objectMapper.readValue(anyString(), eq(ReplyDraftResponse.class)))
+                .thenReturn(ReplyDraftResponse.builder().suggestedBody("ok").build());
+
+        service.draftReply("t-1", request);
+
+        ArgumentCaptor<ReplyDraftRequest> built = ArgumentCaptor.forClass(ReplyDraftRequest.class);
+        verify(promptBuilder).build(built.capture());
+        assertThat(built.getValue().getPolicySnippets()).containsExactly("Refunds within 30 days.");
+    }
+
+    @Test
+    void draftReply_policyRetrievalFailure_stillDrafts() throws Exception {
+        ReplyDraftRequest request = ReplyDraftRequest.builder()
+                .latestMessages(List.of(MessageItem.builder().direction("inbound").preview("Help").build()))
+                .build();
+        when(retrievalService.search(any(), anyInt(), any())).thenThrow(new RuntimeException("qdrant down"));
+        when(promptBuilder.build(any())).thenReturn("draft prompt");
+        wireChatClient("{\"suggestedBody\":\"ok\"}");
+        when(objectMapper.readValue(anyString(), eq(ReplyDraftResponse.class)))
+                .thenReturn(ReplyDraftResponse.builder().suggestedBody("ok").build());
+
+        ReplyDraftResponse response = service.draftReply("t-1", request);
+
+        assertThat(response.getSuggestedBody()).isEqualTo("ok");
+    }
+
+    @Test
+    void draftReply_withCallerPolicySnippets_doesNotRetrieve() throws Exception {
+        ReplyDraftRequest request = ReplyDraftRequest.builder()
+                .policySnippets(List.of("given"))
+                .latestMessages(List.of(MessageItem.builder().direction("inbound").preview("Help").build()))
+                .build();
+        when(promptBuilder.build(any())).thenReturn("draft prompt");
+        wireChatClient("{\"suggestedBody\":\"ok\"}");
+        when(objectMapper.readValue(anyString(), eq(ReplyDraftResponse.class)))
+                .thenReturn(ReplyDraftResponse.builder().suggestedBody("ok").build());
+
+        service.draftReply("t-1", request);
+
+        verifyNoInteractions(retrievalService);
     }
 
     // ── Happy path ────────────────────────────────────────────────────────────

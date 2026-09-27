@@ -4,6 +4,7 @@ import com.caseflow.ai.api.dto.DocumentIngestRequest;
 import com.caseflow.ai.api.dto.IngestResponse;
 import com.caseflow.ai.domain.EntityType;
 import com.caseflow.ai.domain.IngestionJobType;
+import com.caseflow.ai.service.rag.RetrievalFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -55,14 +56,17 @@ public class DocumentIngestService {
     }
 
     private Map<String, Object> buildMetadata(DocumentIngestRequest request) {
+        // Free-form metadata first, so it can never override the keys retrieval filters rely on.
         Map<String, Object> metadata = new HashMap<>();
+        if (request.getMetadata() != null) {
+            metadata.putAll(request.getMetadata());
+        }
         metadata.put("sourceId", request.getSourceId());
         metadata.put("sourceType", request.getSourceType() != null
                 ? request.getSourceType().toUpperCase() : "POLICY");
         metadata.put("title", request.getTitle());
-        if (request.getMetadata() != null) {
-            metadata.putAll(request.getMetadata());
-        }
+        metadata.put("customerId", request.getCustomerId() != null && !request.getCustomerId().isBlank()
+                ? request.getCustomerId() : RetrievalFilter.GLOBAL);
         return metadata;
     }
 }

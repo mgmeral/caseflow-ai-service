@@ -1,10 +1,12 @@
 package com.caseflow.ai.service.ai;
 
 import com.caseflow.ai.api.dto.CaseMatch;
+import com.caseflow.ai.api.dto.SimilarCasesFilters;
 import com.caseflow.ai.api.dto.SimilarCasesRequest;
 import com.caseflow.ai.api.dto.SimilarCasesResponse;
 import com.caseflow.ai.config.AppConfig;
 import com.caseflow.ai.observability.AiMetrics;
+import com.caseflow.ai.service.rag.RetrievalFilter;
 import com.caseflow.ai.service.rag.RetrievalService;
 import com.caseflow.ai.service.rag.RetrievalService.RetrievalResult;
 import lombok.RequiredArgsConstructor;
@@ -41,8 +43,8 @@ public class SimilarCasesService {
         long start = System.currentTimeMillis();
         int topK = request.getTopK() != null ? request.getTopK() : appConfig.getDefaultTopK();
 
-        // Search only indexed TICKET documents
-        RetrievalResult result = retrievalService.search(request.getQueryText(), topK, "TICKET");
+        // Search only indexed TICKET documents, within the caller's scope
+        RetrievalResult result = retrievalService.search(request.getQueryText(), topK, toFilter(request.getFilters()));
         long latencyMs = System.currentTimeMillis() - start;
 
         List<String> warnings = new ArrayList<>();
@@ -66,6 +68,12 @@ public class SimilarCasesService {
                 .matches(matches)
                 .warnings(warnings.isEmpty() ? Collections.emptyList() : warnings)
                 .build();
+    }
+
+    private static RetrievalFilter toFilter(SimilarCasesFilters filters) {
+        if (filters == null) return RetrievalFilter.ofSourceType("TICKET");
+        return new RetrievalFilter("TICKET", filters.getCustomerIds(), filters.getGroupIds(),
+                filters.getStatuses(), filters.getExcludeSourceIds());
     }
 
     private CaseMatch toMatch(Document doc) {

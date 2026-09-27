@@ -6,6 +6,7 @@ import com.caseflow.ai.api.dto.PolicyReference;
 import com.caseflow.ai.config.AppConfig;
 import com.caseflow.ai.observability.AiMetrics;
 import com.caseflow.ai.service.prompt.PolicyGuidancePromptBuilder;
+import com.caseflow.ai.service.rag.RetrievalFilter;
 import com.caseflow.ai.service.rag.RetrievalService;
 import com.caseflow.ai.service.rag.RetrievalService.RetrievalResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,8 +50,9 @@ public class PolicyGuidanceService {
         long start = System.currentTimeMillis();
         int topK = request.getTopK() != null ? request.getTopK() : appConfig.getDefaultTopK();
 
-        // Retrieve only POLICY documents — no cross-type contamination
-        RetrievalResult result = retrievalService.search(request.getQuery(), topK, "POLICY");
+        // Retrieve only POLICY documents this customer may see — GLOBAL ones plus its own
+        RetrievalResult result = retrievalService.search(request.getQuery(), topK,
+                RetrievalFilter.policiesFor(request.getCustomerId()));
         long retrievalMs = System.currentTimeMillis() - start;
 
         List<String> warnings = new ArrayList<>();

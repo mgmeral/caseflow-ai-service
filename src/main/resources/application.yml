@@ -107,8 +107,9 @@ caseflow:
     model-name: ${spring.ai.openai.chat.options.model}
     default-locale: en
     default-top-k: 5
-    chunk-size: 500
-    chunk-overlap: 50
+    # Characters; chunks end on sentence boundaries (ChunkingService). bge-m3 handles long inputs well.
+    chunk-size: 1200
+    chunk-overlap: 200
     # HTTP REST port for Qdrant health checks (default 6333).
     # Distinct from spring.ai.vectorstore.qdrant.port which is the gRPC port (default 6334).
     qdrant-http-port: ${QDRANT_HTTP_PORT:6333}
@@ -133,7 +134,10 @@ caseflow:
     retrieval:
       # Minimum similarity score to include a result (0.0–1.0).
       # Lower = more results but potentially less relevant.
-      similarity-threshold: 0.6
+      # Calibrated for bge-m3 (2026-09-27, benchmark/retrieval-set.json): correct matches scored
+      # 0.566–0.771 (cross-lingual lowest), unrelated documents mostly < 0.55. 0.6 dropped a
+      # correct cross-lingual match; 0.5 keeps all of them.
+      similarity-threshold: 0.5
 
     # Internal service-to-service auth (disabled by default — enable when caseflow-be integrates).
     # When enabled, all /api/** requests must carry X-Internal-Api-Key header.

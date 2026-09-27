@@ -1,10 +1,12 @@
 package com.caseflow.ai.service;
 
 import com.caseflow.ai.config.AppConfig;
+import com.caseflow.ai.service.rag.RetrievalFilter;
 import com.caseflow.ai.service.rag.RetrievalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
@@ -18,7 +20,10 @@ import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -41,7 +46,7 @@ class RetrievalServiceTest {
     void search_returnsEmptyResultWithWarning_whenVectorStoreReturnsNothing() {
         when(vectorStore.similaritySearch(any(SearchRequest.class))).thenReturn(Collections.emptyList());
 
-        RetrievalService.RetrievalResult result = service.search("test query", 5, "POLICY");
+        RetrievalService.RetrievalResult result = service.search("test query", 5, RetrievalFilter.ofSourceType("POLICY"));
 
         assertThat(result.isEmpty()).isTrue();
         assertThat(result.documents()).isEmpty();
@@ -55,7 +60,7 @@ class RetrievalServiceTest {
                 .metadata(Map.of("sourceId", "P1", "sourceType", "POLICY")).score(0.88).build();
         when(vectorStore.similaritySearch(any(SearchRequest.class))).thenReturn(List.of(doc));
 
-        RetrievalService.RetrievalResult result = service.search("refund policy", 5, "POLICY");
+        RetrievalService.RetrievalResult result = service.search("refund policy", 5, RetrievalFilter.ofSourceType("POLICY"));
 
         assertThat(result.isEmpty()).isFalse();
         assertThat(result.documents()).hasSize(1);
@@ -73,7 +78,7 @@ class RetrievalServiceTest {
         when(vectorStore.similaritySearch(any(SearchRequest.class)))
                 .thenReturn(List.of(policyDoc, ticketDoc));
 
-        RetrievalService.RetrievalResult result = service.search("refund", 5, "POLICY");
+        RetrievalService.RetrievalResult result = service.search("refund", 5, RetrievalFilter.ofSourceType("POLICY"));
 
         assertThat(result.documents()).hasSize(1);
         assertThat(result.documents().get(0).getMetadata().get("sourceType")).isEqualTo("POLICY");
@@ -87,6 +92,42 @@ class RetrievalServiceTest {
 
         assertThat(result.isEmpty()).isTrue();
         assertThat(result.warning()).contains("vector store may be empty");
+    }
+
+    @Test
+    void search_pushesFilterDownToVectorStore() {
+        when(vectorStore.similaritySearch(any(SearchRequest.class))).thenReturn(Collections.emptyList());
+
+        service.search("q", 5, new RetrievalFilter("TICKET", List.of("c1"), null, null, null));
+
+        ArgumentCaptor<SearchRequest> captor = ArgumentCaptor.forClass(SearchRequest.class);
+        verify(vectorStore).similaritySearch(captor.capture());
+        assertThat(captor.getValue().getFilterExpression()).isNotNull();
+        assertThat(captor.getValue().getFilterExpression().toString()).contains("customerId", "c1");
+        assertThat(captor.getValue().getTopK()).isGreaterThanOrEqualTo(20);
+    }
+
+    @Test
+    void search_dropsDocumentsOutsideCustomerScope_evenIfStoreReturnsThem() {
+        Document mine = Document.builder().text("mine")
+                .metadata(Map.of("sourceType", "TICKET", "sourceId", "t1", "customerId", "c1")).score(0.9).build();
+        Document other = Document.builder().text("other customer")
+                .metadata(Map.of("sourceType", "TICKET", "sourceId", "t2", "customerId", "c2")).score(0.95).build();
+        when(vectorStore.similaritySearch(any(SearchRequest.class))).thenReturn(List.of(other, mine));
+
+        RetrievalService.RetrievalResult result =
+                service.search("q", 5, new RetrievalFilter("TICKET", List.of("c1"), null, null, null));
+
+        assertThat(result.documents()).extracting(d -> d.getMetadata().get("sourceId")).containsExactly("t1");
+    }
+
+    @Test
+    void search_propagatesStoreFailure_insteadOfRetryingUnfiltered() {
+        when(vectorStore.similaritySearch(any(SearchRequest.class))).thenThrow(new RuntimeException("qdrant down"));
+
+        assertThatThrownBy(() -> service.search("q", 5, RetrievalFilter.policiesFor("c1")))
+                .hasMessageContaining("qdrant down");
+        verify(vectorStore, times(1)).similaritySearch(any(SearchRequest.class));
     }
 
     @Test

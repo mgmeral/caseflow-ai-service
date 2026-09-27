@@ -51,6 +51,9 @@ caseflow:
       reply-draft-version: "1.0"
       similar-cases-version: "1.0"
       policy-guidance-version: "1.0"
+    vector:
+      # No Qdrant in unit tests — VectorCollectionManager must not try to connect at startup
+      bootstrap-on-startup: false
     retrieval:
       similarity-threshold: 0.6
     auth:

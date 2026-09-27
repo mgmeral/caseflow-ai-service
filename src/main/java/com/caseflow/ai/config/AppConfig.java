@@ -27,8 +27,8 @@ public class AppConfig {
 
     private String defaultLocale = "en";
     private int defaultTopK = 5;
-    private int chunkSize = 500;
-    private int chunkOverlap = 50;
+    private int chunkSize = 1200;
+    private int chunkOverlap = 200;
     private int qdrantHttpPort = 6333;
 
     /** Reported in response metadata; bound to spring.ai.openai.chat.options.model in application.yml. */
@@ -77,7 +77,7 @@ public class AppConfig {
          * Lower threshold = more results, potentially less relevant.
          * Increase if hallucinated context is a concern.
          */
-        private double similarityThreshold = 0.6;
+        private double similarityThreshold = 0.5;
     }
 
     @Data

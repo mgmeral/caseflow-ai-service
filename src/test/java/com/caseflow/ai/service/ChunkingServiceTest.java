@@ -15,55 +15,101 @@ class ChunkingServiceTest {
 
     @BeforeEach
     void setUp() {
+        chunkingService = service(100, 40);
+    }
+
+    private static ChunkingService service(int size, int overlap) {
         AppConfig config = new AppConfig();
-        config.setChunkSize(100);
-        config.setChunkOverlap(20);
-        chunkingService = new ChunkingService(config);
+        config.setChunkSize(size);
+        config.setChunkOverlap(overlap);
+        return new ChunkingService(config);
     }
 
     @Test
     void chunk_emptyText_returnsEmptyList() {
-        List<String> result = chunkingService.chunk("");
-        assertThat(result).isEmpty();
+        assertThat(chunkingService.chunk("")).isEmpty();
+        assertThat(chunkingService.chunk("  \n ")).isEmpty();
     }
 
     @Test
     void chunk_nullText_returnsEmptyList() {
-        List<String> result = chunkingService.chunk(null);
-        assertThat(result).isEmpty();
+        assertThat(chunkingService.chunk(null)).isEmpty();
     }
 
     @Test
     void chunk_shortText_returnsSingleChunk() {
         String text = "Short text.";
-        List<String> result = chunkingService.chunk(text);
-        assertThat(result).hasSize(1);
-        assertThat(result.get(0)).isEqualTo(text);
+        assertThat(chunkingService.chunk(text)).containsExactly(text);
     }
 
     @Test
-    void chunk_longText_returnsMultipleChunks() {
-        // Create text longer than chunk size (100 chars)
-        String text = "A".repeat(250);
-        List<String> result = chunkingService.chunk(text);
-        assertThat(result).hasSizeGreaterThan(1);
-        // Each chunk should be at most chunkSize characters
-        result.forEach(chunk -> assertThat(chunk.length()).isLessThanOrEqualTo(100));
+    void chunk_neverCutsASentence_andRespectsSize() {
+        String text = "Customer cannot log in after the update. "
+                + "Password reset emails do not arrive. "
+                + "The SPF record of the sender domain was missing. "
+                + "Adding SPF and DKIM fixed delivery. "
+                + "Customer confirmed the fix on Monday.";
+
+        List<String> chunks = chunkingService.chunk(text);
+
+        assertThat(chunks).hasSizeGreaterThan(1);
+        chunks.forEach(c -> {
+            assertThat(c.length()).isLessThanOrEqualTo(100);
+            assertThat(c).endsWith(".");
+        });
     }
 
     @Test
-    void chunk_respectsOverlap() {
-        String text = "A".repeat(150);
-        AppConfig config = new AppConfig();
-        config.setChunkSize(100);
-        config.setChunkOverlap(20);
-        ChunkingService service = new ChunkingService(config);
+    void chunk_repeatsTrailingSentenceAsOverlap() {
+        String text = "Aaaa aaaa aaaa aaaa aaaa aaaa. Bbbb bbbb bbbb bbbb. Cccc cccc cccc.";
 
-        List<String> result = service.chunk(text);
-        assertThat(result).isNotEmpty();
-        // First chunk starts at 0, second at 80 (100-20), so there is overlap
-        if (result.size() >= 2) {
-            assertThat(result.get(0).substring(80)).isEqualTo(result.get(1).substring(0, 20));
+        List<String> chunks = service(60, 25).chunk(text);
+
+        assertThat(chunks).containsExactly(
+                "Aaaa aaaa aaaa aaaa aaaa aaaa. Bbbb bbbb bbbb bbbb.",
+                "Bbbb bbbb bbbb bbbb. Cccc cccc cccc.");
+    }
+
+    @Test
+    void chunk_skipsOverlapThatWouldNotFitNextToTheNextSentence() {
+        String text = "Aaaa aaaa aaaa aaaa aaaa aaaa. Bbbb bbbb bbbb bbbb. "
+                + "Cccc cccc cccc cccc cccc cccc cccc cccc cccc.";
+
+        List<String> chunks = service(60, 25).chunk(text);
+
+        assertThat(chunks).containsExactly(
+                "Aaaa aaaa aaaa aaaa aaaa aaaa. Bbbb bbbb bbbb bbbb.",
+                "Cccc cccc cccc cccc cccc cccc cccc cccc cccc.");
+    }
+
+    @Test
+    void chunk_keepsAllTextOfAnOverlongSentence() {
+        String sentence = "x".repeat(250);
+
+        List<String> chunks = chunkingService.chunk(sentence);
+
+        assertThat(String.join("", chunks)).isEqualTo(sentence);
+        chunks.forEach(c -> assertThat(c.length()).isLessThanOrEqualTo(100));
+    }
+
+    @Test
+    void chunk_preservesParagraphBreaksAndTurkishText() {
+        String text = "Şifre sıfırlama çalışmıyor.\n\nMüşteri yarın tekrar deneyecek.";
+
+        assertThat(chunkingService.chunk(text))
+                .containsExactly("Şifre sıfırlama çalışmıyor.\n\nMüşteri yarın tekrar deneyecek.");
+    }
+
+    @Test
+    void chunk_everySentenceAppearsInSomeChunk() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 40; i++) sb.append("Sentence number ").append(i).append(" is here. ");
+
+        List<String> chunks = chunkingService.chunk(sb.toString());
+
+        for (int i = 0; i < 40; i++) {
+            String s = "Sentence number " + i + " is here.";
+            assertThat(chunks).anyMatch(c -> c.contains(s));
         }
     }
 }

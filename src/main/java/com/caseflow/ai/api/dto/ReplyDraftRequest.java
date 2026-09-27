@@ -15,6 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ReplyDraftRequest {
     private String customerName;
+    /** Scopes policy retrieval to GLOBAL policies plus this customer's own. Optional. */
+    private String customerId;
     private String locale;
     private String tone;
     private String selectedTemplateCode;

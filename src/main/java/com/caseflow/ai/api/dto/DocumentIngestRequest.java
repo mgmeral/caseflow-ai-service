@@ -21,5 +21,7 @@ public class DocumentIngestRequest {
     private String title;
     @NotBlank
     private String text;
+    /** Customer the document applies to; omitted means it applies to every customer (GLOBAL). */
+    private String customerId;
     private Map<String, Object> metadata;
 }

@@ -6,6 +6,7 @@ import com.caseflow.ai.config.AppConfig;
 import com.caseflow.ai.observability.AiMetrics;
 import com.caseflow.ai.service.ai.PolicyGuidanceService;
 import com.caseflow.ai.service.prompt.PolicyGuidancePromptBuilder;
+import com.caseflow.ai.service.rag.RetrievalFilter;
 import com.caseflow.ai.service.rag.RetrievalService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -63,7 +64,7 @@ class PolicyGuidanceServiceTest {
 
         RetrievalService.RetrievalResult emptyResult = RetrievalService.RetrievalResult.empty(
                 "No indexed policy documents matched this query.");
-        when(retrievalService.search(eq("What is the refund policy?"), eq(5), eq("POLICY")))
+        when(retrievalService.search(eq("What is the refund policy?"), eq(5), eq(RetrievalFilter.policiesFor(null))))
                 .thenReturn(emptyResult);
 
         PolicyGuidanceResponse response = service.getGuidance(ticketId, request);
@@ -95,7 +96,7 @@ class PolicyGuidanceServiceTest {
 
         RetrievalService.RetrievalResult result = new RetrievalService.RetrievalResult(
                 List.of(doc), false, null);
-        when(retrievalService.search(eq("Refund window?"), eq(3), eq("POLICY"))).thenReturn(result);
+        when(retrievalService.search(eq("Refund window?"), eq(3), eq(RetrievalFilter.policiesFor(null)))).thenReturn(result);
 
         when(promptBuilder.build(any(), any())).thenReturn("policy prompt");
 

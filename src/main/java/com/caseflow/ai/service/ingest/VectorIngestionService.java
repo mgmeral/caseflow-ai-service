@@ -4,17 +4,22 @@ import com.caseflow.ai.domain.EntityType;
 import com.caseflow.ai.domain.IngestionJobType;
 import com.caseflow.ai.observability.AiMetrics;
 import com.caseflow.ai.persistence.entity.IngestionJob;
+import com.caseflow.ai.service.rag.RetrievalFilter;
+import com.caseflow.ai.service.rag.VectorCollectionManager;
 import com.caseflow.ai.support.ChunkingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.ai.vectorstore.filter.FilterExpressionBuilder;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Central engine for chunking, embedding, and vector indexing with full job tracking.
@@ -26,9 +31,11 @@ import java.util.Map;
  *   <li>No silent failures — every ingest attempt has an auditable outcome</li>
  * </ul>
  *
- * <p>Note: This service does NOT delete existing chunks for an entity before re-indexing.
- * Full delete-then-reindex support (for version replacement) is deferred to a later phase.
- * For now, re-syncing an entity will result in additional chunks alongside existing ones.
+ * <p>Re-ingesting a source replaces it: its existing chunks are deleted first (by
+ * {@code sourceType} + {@code sourceId}), and chunk point IDs are derived from
+ * {@code sourceType:sourceId:chunkIndex}, so two concurrent ingests of the same source overwrite
+ * each other instead of duplicating. Non-ticket sources without a {@code customerId} are
+ * stored as {@link RetrievalFilter#GLOBAL} so customer-scoped policy retrieval still finds them.
  */
 @Service
 @RequiredArgsConstructor
@@ -36,6 +43,7 @@ import java.util.Map;
 public class VectorIngestionService {
 
     private final VectorStore vectorStore;
+    private final VectorCollectionManager collectionManager;
     private final ChunkingService chunkingService;
     private final IngestionJobService ingestionJobService;
     private final AiMetrics aiMetrics;
@@ -85,8 +93,17 @@ public class VectorIngestionService {
                 return IngestResult.skipped(job.getJobId(), entityId, reason);
             }
 
-            List<Document> documents = buildDocuments(chunks, entityId, metadata);
-            vectorStore.add(documents);
+            Map<String, Object> baseMetadata = new HashMap<>(metadata);
+            String sourceType = String.valueOf(baseMetadata.getOrDefault("sourceType", entityType.name()));
+            baseMetadata.put("sourceType", sourceType);
+            baseMetadata.put("sourceId", entityId);
+            if (!"TICKET".equals(sourceType)) {
+                baseMetadata.putIfAbsent("customerId", RetrievalFilter.GLOBAL);
+            }
+
+            collectionManager.ensureCollection();
+            deleteChunks(sourceType, entityId);
+            vectorStore.add(buildDocuments(chunks, sourceType, entityId, baseMetadata));
 
             ingestionJobService.completeJob(job.getJobId(), chunks.size());
             aiMetrics.recordIngestionSucceeded();
@@ -104,15 +121,33 @@ public class VectorIngestionService {
         }
     }
 
+    /**
+     * Removes every chunk of a source from the vector store (e.g. a reopened ticket or a
+     * deleted policy). Removing a source that was never indexed is a no-op.
+     */
+    public void deleteSource(String sourceType, String sourceId) {
+        collectionManager.ensureCollection();
+        deleteChunks(sourceType.toUpperCase(), sourceId);
+        log.info("Vector source deleted: sourceType={} sourceId={}", sourceType, sourceId);
+    }
+
+    private void deleteChunks(String sourceType, String sourceId) {
+        FilterExpressionBuilder b = new FilterExpressionBuilder();
+        vectorStore.delete(b.and(b.eq("sourceType", sourceType), b.eq("sourceId", sourceId)).build());
+    }
+
     private List<Document> buildDocuments(List<String> chunks,
-                                           String entityId,
+                                           String sourceType,
+                                           String sourceId,
                                            Map<String, Object> baseMetadata) {
         List<Document> docs = new ArrayList<>(chunks.size());
         for (int i = 0; i < chunks.size(); i++) {
             Map<String, Object> meta = new HashMap<>(baseMetadata);
             meta.put("chunkIndex", i);
             meta.put("chunkTotal", chunks.size());
-            docs.add(new Document(chunks.get(i), meta));
+            String id = UUID.nameUUIDFromBytes((sourceType + ":" + sourceId + ":" + i)
+                    .getBytes(StandardCharsets.UTF_8)).toString();
+            docs.add(Document.builder().id(id).text(chunks.get(i)).metadata(meta).build());
         }
         return docs;
     }

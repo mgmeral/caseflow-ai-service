@@ -7,13 +7,19 @@ import com.caseflow.ai.observability.AiMetrics;
 import com.caseflow.ai.persistence.entity.IngestionJob;
 import com.caseflow.ai.service.ingest.IngestionJobService;
 import com.caseflow.ai.service.ingest.VectorIngestionService;
+import com.caseflow.ai.service.rag.RetrievalFilter;
+import com.caseflow.ai.service.rag.VectorCollectionManager;
 import com.caseflow.ai.support.ChunkingService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.ai.vectorstore.filter.Filter;
 
 import java.time.Instant;
 import java.util.List;
@@ -31,6 +37,7 @@ class VectorIngestionServiceTest {
 
     @Mock private VectorStore vectorStore;
     @Mock private ChunkingService chunkingService;
+    @Mock private VectorCollectionManager collectionManager;
     @Mock private IngestionJobService ingestionJobService;
     @Mock private AiMetrics aiMetrics;
 
@@ -68,6 +75,65 @@ class VectorIngestionServiceTest {
         assertThat(result.jobId()).isEqualTo("JOB-A");
         verify(vectorStore).add(any());
         verify(aiMetrics).recordIngestionSucceeded();
+    }
+
+    @Test
+    void ingest_replacesExistingChunks_withDeterministicIds() {
+        IngestionJob job = buildJob("JOB-R");
+        when(ingestionJobService.createJob(any(), anyString(), any(), any(), any())).thenReturn(job);
+        when(ingestionJobService.startJob(anyString())).thenReturn(job);
+        when(ingestionJobService.completeJob(anyString(), anyInt())).thenReturn(job);
+        when(chunkingService.chunk(anyString())).thenReturn(List.of("chunk1", "chunk2"));
+
+        service.ingest(EntityType.TICKET, "t-1", IngestionJobType.INGEST, "text",
+                Map.of("sourceType", "TICKET", "customerId", "c1"), null, null);
+        service.ingest(EntityType.TICKET, "t-1", IngestionJobType.INGEST, "text",
+                Map.of("sourceType", "TICKET", "customerId", "c1"), null, null);
+
+        InOrder order = inOrder(collectionManager, vectorStore);
+        order.verify(collectionManager).ensureCollection();
+        order.verify(vectorStore).delete(any(Filter.Expression.class));
+        order.verify(vectorStore).add(any());
+
+        ArgumentCaptor<Filter.Expression> deleted = ArgumentCaptor.forClass(Filter.Expression.class);
+        verify(vectorStore, times(2)).delete(deleted.capture());
+        assertThat(deleted.getValue().toString()).contains("sourceType", "TICKET", "sourceId", "t-1");
+
+        @SuppressWarnings("unchecked")
+        ArgumentCaptor<List<Document>> added = ArgumentCaptor.forClass(List.class);
+        verify(vectorStore, times(2)).add(added.capture());
+        List<String> firstIds = added.getAllValues().get(0).stream().map(Document::getId).toList();
+        List<String> secondIds = added.getAllValues().get(1).stream().map(Document::getId).toList();
+        assertThat(firstIds).doesNotHaveDuplicates().isEqualTo(secondIds);
+    }
+
+    @Test
+    void ingest_policyWithoutCustomer_isStoredAsGlobal_butTicketIsNot() {
+        IngestionJob job = buildJob("JOB-G");
+        when(ingestionJobService.createJob(any(), anyString(), any(), any(), any())).thenReturn(job);
+        when(ingestionJobService.startJob(anyString())).thenReturn(job);
+        when(ingestionJobService.completeJob(anyString(), anyInt())).thenReturn(job);
+        when(chunkingService.chunk(anyString())).thenReturn(List.of("chunk1"));
+
+        service.ingest(EntityType.POLICY, "POL-9", IngestionJobType.INGEST, "text",
+                Map.of("sourceType", "POLICY"), null, null);
+        service.ingest(EntityType.TICKET, "t-9", IngestionJobType.INGEST, "text",
+                Map.of("sourceType", "TICKET"), null, null);
+
+        @SuppressWarnings("unchecked")
+        ArgumentCaptor<List<Document>> added = ArgumentCaptor.forClass(List.class);
+        verify(vectorStore, times(2)).add(added.capture());
+        assertThat(added.getAllValues().get(0).get(0).getMetadata()).containsEntry("customerId", RetrievalFilter.GLOBAL);
+        assertThat(added.getAllValues().get(1).get(0).getMetadata()).doesNotContainKey("customerId");
+    }
+
+    @Test
+    void deleteSource_deletesBySourceTypeAndId() {
+        service.deleteSource("ticket", "t-5");
+
+        ArgumentCaptor<Filter.Expression> deleted = ArgumentCaptor.forClass(Filter.Expression.class);
+        verify(vectorStore).delete(deleted.capture());
+        assertThat(deleted.getValue().toString()).contains("TICKET", "t-5");
     }
 
     @Test

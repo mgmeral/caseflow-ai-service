@@ -17,6 +17,9 @@ public class TicketIngestRequest {
     @NotBlank
     private String sourceId;
     private String customerName;
+    /** Stored on every chunk for scope filtering in similar-case search. Optional. */
+    private String customerId;
+    private String groupId;
     @NotBlank
     private String subject;
     @NotBlank

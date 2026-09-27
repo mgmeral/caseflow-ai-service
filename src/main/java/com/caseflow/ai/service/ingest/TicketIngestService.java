@@ -46,19 +46,30 @@ public class TicketIngestService {
     }
 
     private Map<String, Object> buildMetadata(TicketIngestRequest request) {
+        // Free-form metadata first, so it can never override the keys retrieval filters rely on.
         Map<String, Object> metadata = new HashMap<>();
+        if (request.getMetadata() != null) {
+            metadata.putAll(request.getMetadata());
+        }
         metadata.put("sourceId", request.getSourceId());
         metadata.put("sourceType", "TICKET");
         metadata.put("title", request.getSubject());
         metadata.put("customerName", request.getCustomerName());
         metadata.put("status", request.getStatus());
+        putIfPresent(metadata, "customerId", request.getCustomerId());
+        putIfPresent(metadata, "groupId", request.getGroupId());
         if (request.getTags() != null && !request.getTags().isEmpty()) {
             metadata.put("tags", String.join(",", request.getTags()));
         }
-        if (request.getMetadata() != null) {
-            metadata.putAll(request.getMetadata());
-        }
         return metadata;
+    }
+
+    private static void putIfPresent(Map<String, Object> metadata, String key, String value) {
+        if (value != null && !value.isBlank()) {
+            metadata.put(key, value);
+        } else {
+            metadata.remove(key);
+        }
     }
 
     private String buildTicketText(TicketIngestRequest request) {

@@ -5,6 +5,7 @@ import com.caseflow.ai.api.dto.SimilarCasesResponse;
 import com.caseflow.ai.config.AppConfig;
 import com.caseflow.ai.observability.AiMetrics;
 import com.caseflow.ai.service.ai.SimilarCasesService;
+import com.caseflow.ai.service.rag.RetrievalFilter;
 import com.caseflow.ai.service.rag.RetrievalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,7 +54,7 @@ class SimilarCasesServiceTest {
                 .topK(5)
                 .build();
 
-        when(retrievalService.search(eq("billing issue refund request"), eq(5), eq("TICKET")))
+        when(retrievalService.search(eq("billing issue refund request"), eq(5), eq(RetrievalFilter.ofSourceType("TICKET"))))
                 .thenReturn(RetrievalService.RetrievalResult.empty(
                         "No indexed ticket documents matched this query."));
 
@@ -80,7 +81,7 @@ class SimilarCasesServiceTest {
                 .metadata(Map.of("sourceId", "TKT-OLD-1", "sourceType", "TICKET", "title", "Password Reset Issue"))
                 .score(0.91).build();
 
-        when(retrievalService.search(eq("password reset problem"), eq(3), eq("TICKET")))
+        when(retrievalService.search(eq("password reset problem"), eq(3), eq(RetrievalFilter.ofSourceType("TICKET"))))
                 .thenReturn(new RetrievalService.RetrievalResult(List.of(doc), false, null));
 
         SimilarCasesResponse response = service.findSimilar(ticketId, request);
@@ -100,12 +101,12 @@ class SimilarCasesServiceTest {
                 .topK(null)
                 .build();
 
-        when(retrievalService.search(any(), eq(5), eq("TICKET")))
+        when(retrievalService.search(any(), eq(5), eq(RetrievalFilter.ofSourceType("TICKET"))))
                 .thenReturn(new RetrievalService.RetrievalResult(Collections.emptyList(), true,
                         "No indexed ticket documents matched this query."));
 
         service.findSimilar(ticketId, request);
 
-        verify(retrievalService).search(any(), eq(5), eq("TICKET"));
+        verify(retrievalService).search(any(), eq(5), eq(RetrievalFilter.ofSourceType("TICKET")));
     }
 }
